@@ -19,11 +19,14 @@ def servo_calc(x_coord, y_coord, z_coord):
     print(s1)
     print(s2)
     print(s3)
+
+    #for the test to assert completion- may edit later
+    return 0
     #Pyserial will eventually be sent below
 
 def j1_calc(x_len, y_len):
     """Calculates hip servo angle"""
-    if x_len == 0:
+    if y_len == 0:
         j1 = 0
         return j1
     else:
@@ -43,6 +46,7 @@ def j2_calc(x_len,y_len,z_len):
     #Addition since A is negative - double check
 
     j2 = b + a
+    #90 degree diff here
     return j2
 
 def j3_calc(x_len, y_len, z_len):

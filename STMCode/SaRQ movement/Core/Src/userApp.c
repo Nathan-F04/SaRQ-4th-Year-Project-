@@ -46,6 +46,7 @@ void userApp() {
 
 	xTaskCreate(task1, "Task 1", 200, NULL, 2, NULL);
 	vTaskStartScheduler();
+	//Test here
 
 	while(1) {
 	}

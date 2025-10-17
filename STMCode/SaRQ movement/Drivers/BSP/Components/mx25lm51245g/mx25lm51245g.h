@@ -1,21 +1,21 @@
 /**
-  ******************************************************************************
-  * @file    mx25lm51245g.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the description of the MX25LM51245G Octal memory.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */ 
+ ******************************************************************************
+ * @file    mx25lm51245g.h
+ * @author  MCD Application Team
+ * @brief   This file contains all the description of the MX25LM51245G Octal memory.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MX25LM51245G_H
@@ -28,32 +28,32 @@
 /* Includes ------------------------------------------------------------------*/
 
 /** @addtogroup BSP
-  * @{
-  */ 
+ * @{
+ */
 
 /** @addtogroup Components
-  * @{
-  */ 
-  
+ * @{
+ */
+
 /** @addtogroup MX25LM51245G
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup MX25LM51245G_Exported_Types
-  * @{
-  */
-   
+ * @{
+ */
+
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /** @defgroup MX25LM51245G_Exported_Constants
-  * @{
-  */
-   
+ * @{
+ */
+
 /** 
-  * @brief  MX25LM51245G Configuration  
-  */  
+ * @brief  MX25LM51245G Configuration  
+ */
 #define MX25LM51245G_FLASH_SIZE                   0x4000000 /* 512 MBits => 64 MBytes */
 #define MX25LM51245G_BLOCK_SIZE                   0x10000   /* 1024 blocks of 64 KBytes */
 #define MX25LM51245G_SECTOR_SIZE                  0x1000    /* 16384 sectors of 4 kBytes */
@@ -76,8 +76,8 @@
 #define MX25LM51245G_WRITE_REG_MAX_TIME           40
 
 /** 
-  * @brief  MX25LM51245G Commands  
-  */  
+ * @brief  MX25LM51245G Commands  
+ */
 /* Read Operations */
 #define READ_CMD                                  0x03
 #define READ_4_BYTE_ADDR_CMD                      0x13
@@ -222,8 +222,8 @@
 #define OCTAL_GANG_BLOCK_UNLOCK_CMD               0x9867
 
 /** 
-  * @brief  MX25LM51245G Registers  
-  */ 
+ * @brief  MX25LM51245G Registers  
+ */
 /* Status Register */
 #define MX25LM51245G_SR_WIP                       ((uint8_t)0x01)        /*!< Write in progress */
 #define MX25LM51245G_SR_WEL                       ((uint8_t)0x02)        /*!< Write enable latch */
@@ -270,16 +270,16 @@
 #define MX25LM51245G_SECR_E_FAIL                  ((uint8_t)0x40)        /*!< Erase fail flag */
 #define MX25LM51245G_SECR_WPSEL                   ((uint8_t)0x40)        /*!< Write protection selection */
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /** @defgroup MX25LM51245G_Exported_Functions
-  * @{
-  */ 
+ * @{
+ */
 /**
-  * @}
-  */ 
-      
+ * @}
+ */
+
 #ifdef __cplusplus
 }
 #endif
@@ -287,15 +287,15 @@
 #endif /* __MX25LM51245G_H */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

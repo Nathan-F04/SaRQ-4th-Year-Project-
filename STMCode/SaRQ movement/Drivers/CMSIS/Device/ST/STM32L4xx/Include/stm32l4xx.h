@@ -1,38 +1,38 @@
 /**
-  ******************************************************************************
-  * @file    stm32l4xx.h
-  * @author  MCD Application Team
-  * @brief   CMSIS STM32L4xx Device Peripheral Access Layer Header File.
-  *
-  *          The file is the unique include file that the application programmer
-  *          is using in the C source code, usually in main.c. This file contains:
-  *           - Configuration section that allows to select:
-  *              - The STM32L4xx device used in the target application
-  *              - To use or not the peripheral's drivers in application code(i.e.
-  *                code will be based on direct access to peripheral's registers
-  *                rather than drivers API), this option is controlled by
-  *                "#define USE_HAL_DRIVER"
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    stm32l4xx.h
+ * @author  MCD Application Team
+ * @brief   CMSIS STM32L4xx Device Peripheral Access Layer Header File.
+ *
+ *          The file is the unique include file that the application programmer
+ *          is using in the C source code, usually in main.c. This file contains:
+ *           - Configuration section that allows to select:
+ *              - The STM32L4xx device used in the target application
+ *              - To use or not the peripheral's drivers in application code(i.e.
+ *                code will be based on direct access to peripheral's registers
+ *                rather than drivers API), this option is controlled by
+ *                "#define USE_HAL_DRIVER"
+ *
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2017 STMicroelectronics.
+ * All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 
 /** @addtogroup CMSIS
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup stm32l4xx
-  * @{
-  */
+ * @{
+ */
 
 #ifndef __STM32L4xx_H
 #define __STM32L4xx_H
@@ -42,19 +42,19 @@
 #endif /* __cplusplus */
 
 /** @addtogroup Library_configuration_section
-  * @{
-  */
+ * @{
+ */
 
 /**
-  * @brief STM32 Family
-  */
+ * @brief STM32 Family
+ */
 #if !defined (STM32L4)
 #define STM32L4
 #endif /* STM32L4 */
 
 /* Uncomment the line below according to the target STM32L4 device used in your
-   application
-  */
+ application
+ */
 
 #if !defined (STM32L412xx) && !defined (STM32L422xx) && \
     !defined (STM32L431xx) && !defined (STM32L432xx) && !defined (STM32L433xx) && !defined (STM32L442xx) && !defined (STM32L443xx) && \
@@ -63,47 +63,47 @@
     !defined (STM32L496xx) && !defined (STM32L4A6xx) && \
     !defined (STM32L4P5xx) && !defined (STM32L4Q5xx) && \
     !defined (STM32L4R5xx) && !defined (STM32L4R7xx) && !defined (STM32L4R9xx) && !defined (STM32L4S5xx) && !defined (STM32L4S7xx) && !defined (STM32L4S9xx)
-  /* #define STM32L412xx */   /*!< STM32L412xx Devices */
-  /* #define STM32L422xx */   /*!< STM32L422xx Devices */
-  /* #define STM32L431xx */   /*!< STM32L431xx Devices */
-  /* #define STM32L432xx */   /*!< STM32L432xx Devices */
-  /* #define STM32L433xx */   /*!< STM32L433xx Devices */
-  /* #define STM32L442xx */   /*!< STM32L442xx Devices */
-  /* #define STM32L443xx */   /*!< STM32L443xx Devices */
-  /* #define STM32L451xx */   /*!< STM32L451xx Devices */
-  /* #define STM32L452xx */   /*!< STM32L452xx Devices */
-  /* #define STM32L462xx */   /*!< STM32L462xx Devices */
-  /* #define STM32L471xx */   /*!< STM32L471xx Devices */
-  /* #define STM32L475xx */   /*!< STM32L475xx Devices */
-  /* #define STM32L476xx */   /*!< STM32L476xx Devices */
-  /* #define STM32L485xx */   /*!< STM32L485xx Devices */
-  /* #define STM32L486xx */   /*!< STM32L486xx Devices */
-  /* #define STM32L496xx */   /*!< STM32L496xx Devices */
-  /* #define STM32L4A6xx */   /*!< STM32L4A6xx Devices */
-  /* #define STM32L4P5xx */   /*!< STM32L4Q5xx Devices */
-  /* #define STM32L4R5xx */   /*!< STM32L4R5xx Devices */
-  /* #define STM32L4R7xx */   /*!< STM32L4R7xx Devices */
-  /* #define STM32L4R9xx */   /*!< STM32L4R9xx Devices */
-  /* #define STM32L4S5xx */   /*!< STM32L4S5xx Devices */
-  /* #define STM32L4S7xx */   /*!< STM32L4S7xx Devices */
-  /* #define STM32L4S9xx */   /*!< STM32L4S9xx Devices */
+/* #define STM32L412xx *//*!< STM32L412xx Devices */
+/* #define STM32L422xx *//*!< STM32L422xx Devices */
+/* #define STM32L431xx *//*!< STM32L431xx Devices */
+/* #define STM32L432xx *//*!< STM32L432xx Devices */
+/* #define STM32L433xx *//*!< STM32L433xx Devices */
+/* #define STM32L442xx *//*!< STM32L442xx Devices */
+/* #define STM32L443xx *//*!< STM32L443xx Devices */
+/* #define STM32L451xx *//*!< STM32L451xx Devices */
+/* #define STM32L452xx *//*!< STM32L452xx Devices */
+/* #define STM32L462xx *//*!< STM32L462xx Devices */
+/* #define STM32L471xx *//*!< STM32L471xx Devices */
+/* #define STM32L475xx *//*!< STM32L475xx Devices */
+/* #define STM32L476xx *//*!< STM32L476xx Devices */
+/* #define STM32L485xx *//*!< STM32L485xx Devices */
+/* #define STM32L486xx *//*!< STM32L486xx Devices */
+/* #define STM32L496xx *//*!< STM32L496xx Devices */
+/* #define STM32L4A6xx *//*!< STM32L4A6xx Devices */
+/* #define STM32L4P5xx *//*!< STM32L4Q5xx Devices */
+/* #define STM32L4R5xx *//*!< STM32L4R5xx Devices */
+/* #define STM32L4R7xx *//*!< STM32L4R7xx Devices */
+/* #define STM32L4R9xx *//*!< STM32L4R9xx Devices */
+/* #define STM32L4S5xx *//*!< STM32L4S5xx Devices */
+/* #define STM32L4S7xx *//*!< STM32L4S7xx Devices */
+/* #define STM32L4S9xx *//*!< STM32L4S9xx Devices */
 #endif
 
 /*  Tip: To avoid modifying this file each time you need to switch between these
-        devices, you can define the device in your toolchain compiler preprocessor.
-  */
+ devices, you can define the device in your toolchain compiler preprocessor.
+ */
 #if !defined  (USE_HAL_DRIVER)
 /**
  * @brief Comment the line below if you will not use the peripherals drivers.
-   In this case, these drivers will not be included and the application code will
-   be based on direct access to peripherals registers
-   */
-  /*#define USE_HAL_DRIVER */
+ In this case, these drivers will not be included and the application code will
+ be based on direct access to peripherals registers
+ */
+/*#define USE_HAL_DRIVER */
 #endif /* USE_HAL_DRIVER */
 
 /**
-  * @brief CMSIS Device version number
-  */
+ * @brief CMSIS Device version number
+ */
 #define __STM32L4_CMSIS_VERSION_MAIN   (0x01) /*!< [31:24] main version */
 #define __STM32L4_CMSIS_VERSION_SUB1   (0x07) /*!< [23:16] sub1 version */
 #define __STM32L4_CMSIS_VERSION_SUB2   (0x04) /*!< [15:8]  sub2 version */
@@ -114,12 +114,12 @@
                                        |(__STM32L4_CMSIS_VERSION_RC))
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @addtogroup Device_Included
-  * @{
-  */
+ * @{
+ */
 
 #if defined(STM32L412xx)
   #include "stm32l412xx.h"
@@ -172,43 +172,36 @@
 #elif defined(STM32L4S9xx)
   #include "stm32l4s9xx.h"
 #else
- #error "Please select first the target STM32L4xx device used in your application (in stm32l4xx.h file)"
+#error "Please select first the target STM32L4xx device used in your application (in stm32l4xx.h file)"
 #endif
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @addtogroup Exported_types
-  * @{
-  */
-typedef enum
-{
-  RESET = 0,
-  SET = !RESET
+ * @{
+ */
+typedef enum {
+	RESET = 0, SET = !RESET
 } FlagStatus, ITStatus;
 
-typedef enum
-{
-  DISABLE = 0,
-  ENABLE = !DISABLE
+typedef enum {
+	DISABLE = 0, ENABLE = !DISABLE
 } FunctionalState;
 #define IS_FUNCTIONAL_STATE(STATE) (((STATE) == DISABLE) || ((STATE) == ENABLE))
 
-typedef enum
-{
-  SUCCESS = 0,
-  ERROR = !SUCCESS
+typedef enum {
+	SUCCESS = 0, ERROR = !SUCCESS
 } ErrorStatus;
 
 /**
-  * @}
-  */
-
+ * @}
+ */
 
 /** @addtogroup Exported_macros
-  * @{
-  */
+ * @{
+ */
 #define SET_BIT(REG, BIT)     ((REG) |= (BIT))
 
 #define CLEAR_BIT(REG, BIT)   ((REG) &= ~(BIT))
@@ -281,8 +274,8 @@ typedef enum
 #define POSITION_VAL(VAL)     (__CLZ(__RBIT(VAL)))
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 #if defined (USE_HAL_DRIVER)
  #include "stm32l4xx_hal.h"
@@ -294,10 +287,10 @@ typedef enum
 
 #endif /* __STM32L4xx_H */
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 

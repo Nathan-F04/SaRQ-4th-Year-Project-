@@ -1,22 +1,22 @@
 /**
-  ******************************************************************************
-  * @file    st7789h2.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the functions prototypes for the st7789h2.c
-  *          driver.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */ 
+ ******************************************************************************
+ * @file    st7789h2.h
+ * @author  MCD Application Team
+ * @brief   This file contains all the functions prototypes for the st7789h2.c
+ *          driver.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __ST7789H2_H
@@ -31,35 +31,35 @@
 #include "../Common/lcd.h"
 
 /** @addtogroup BSP
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup Components
-  * @{
-  */ 
+ * @{
+ */
 
 /** @addtogroup ST7789H2
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup ST7789H2_Exported_Types ST7789H2 Exported Types
-  * @{
-  */
+ * @{
+ */
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup ST7789H2_Exported_Constants ST7789H2 Exported Constants
-  * @{
-  */
+ * @{
+ */
 /**
-  * @brief  ST7789H2 ID  
-  */
+ * @brief  ST7789H2 ID  
+ */
 #define  ST7789H2_ID    0x85
 
 /** 
-  * @brief  ST7789H2 Size  
-  */
+ * @brief  ST7789H2 Size  
+ */
 #define  ST7789H2_LCD_PIXEL_WIDTH    ((uint16_t)240)
 #define  ST7789H2_LCD_PIXEL_HEIGHT   ((uint16_t)240)
 
@@ -69,11 +69,11 @@
  */
 #define ST7789H2_ORIENTATION_PORTRAIT         ((uint32_t)0x00) /* Portrait orientation choice of LCD screen  */
 #define ST7789H2_ORIENTATION_LANDSCAPE        ((uint32_t)0x01) /* Landscape orientation choice of LCD screen */
-#define ST7789H2_ORIENTATION_LANDSCAPE_ROT180 ((uint32_t)0x02) /* Landscape rotated 180° orientation choice of LCD screen */
+#define ST7789H2_ORIENTATION_LANDSCAPE_ROT180 ((uint32_t)0x02) /* Landscape rotated 180ï¿½ orientation choice of LCD screen */
 
 /** 
-  * @brief  ST7789H2 Registers  
-  */
+ * @brief  ST7789H2 Registers  
+ */
 #define ST7789H2_LCD_ID             0x04
 #define ST7789H2_SLEEP_IN           0x10
 #define ST7789H2_SLEEP_OUT          0x11
@@ -107,49 +107,53 @@
 #define ST7789H2_NV_GAMMA_CTRL      0xE1
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup ST7789H2_Exported_Functions ST7789H2 Exported Functions
-  * @{
-  */ 
-void     ST7789H2_Init(void);
-void     ST7789H2_SetOrientation(uint32_t orientation);
+ * @{
+ */
+void ST7789H2_Init(void);
+void ST7789H2_SetOrientation(uint32_t orientation);
 uint16_t ST7789H2_ReadID(void);
-void     ST7789H2_WriteReg(uint8_t Command, uint8_t *Parameters, uint8_t NbParameters);
-uint8_t  ST7789H2_ReadReg(uint8_t Command);
+void ST7789H2_WriteReg(uint8_t Command, uint8_t *Parameters,
+		uint8_t NbParameters);
+uint8_t ST7789H2_ReadReg(uint8_t Command);
 
-void     ST7789H2_DisplayOn(void);
-void     ST7789H2_DisplayOff(void);
-void     ST7789H2_SetCursor(uint16_t Xpos, uint16_t Ypos);
-void     ST7789H2_WritePixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode);
+void ST7789H2_DisplayOn(void);
+void ST7789H2_DisplayOff(void);
+void ST7789H2_SetCursor(uint16_t Xpos, uint16_t Ypos);
+void ST7789H2_WritePixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode);
 uint16_t ST7789H2_ReadPixel(uint16_t Xpos, uint16_t Ypos);
 
-void     ST7789H2_DrawHLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length);
-void     ST7789H2_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length);
-void     ST7789H2_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp);
-void     ST7789H2_DrawRGBImage(uint16_t Xpos, uint16_t Ypos, uint16_t Xsize, uint16_t Ysize, uint8_t *pdata);
+void ST7789H2_DrawHLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos,
+		uint16_t Length);
+void ST7789H2_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos,
+		uint16_t Length);
+void ST7789H2_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp);
+void ST7789H2_DrawRGBImage(uint16_t Xpos, uint16_t Ypos, uint16_t Xsize,
+		uint16_t Ysize, uint8_t *pdata);
 
-void     ST7789H2_SetDisplayWindow(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
-
+void ST7789H2_SetDisplayWindow(uint16_t Xpos, uint16_t Ypos, uint16_t Width,
+		uint16_t Height);
 
 uint16_t ST7789H2_GetLcdPixelWidth(void);
 uint16_t ST7789H2_GetLcdPixelHeight(void);
 
 /* LCD driver structure */
-extern LCD_DrvTypeDef   ST7789H2_drv;
+extern LCD_DrvTypeDef ST7789H2_drv;
 
 /* LCD IO functions */
-extern void     LCD_IO_Init(void);
-extern void     LCD_IO_WriteMultipleData(uint16_t *pData, uint32_t Size);
-extern void     LCD_IO_WriteReg(uint8_t Reg);
-extern void     LCD_IO_WriteData(uint16_t RegValue);
+extern void LCD_IO_Init(void);
+extern void LCD_IO_WriteMultipleData(uint16_t *pData, uint32_t Size);
+extern void LCD_IO_WriteReg(uint8_t Reg);
+extern void LCD_IO_WriteData(uint16_t RegValue);
 extern uint16_t LCD_IO_ReadData(void);
-extern void     LCD_IO_Delay(uint32_t delay);
+extern void LCD_IO_Delay(uint32_t delay);
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 #ifdef __cplusplus
 }
@@ -158,15 +162,15 @@ extern void     LCD_IO_Delay(uint32_t delay);
 #endif /* __ST7789H2_H */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

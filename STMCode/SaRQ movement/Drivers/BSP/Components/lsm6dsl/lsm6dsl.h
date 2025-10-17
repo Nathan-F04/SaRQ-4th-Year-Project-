@@ -24,26 +24,26 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
-  
+
 /* Includes ------------------------------------------------------------------*/
 #include "../Common/accelero.h"
 #include "../Common/gyro.h"  
 
 /** @addtogroup BSP
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup Component
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup LSM6DSL
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup LSM6DSL_Exported_Constants LSM6DSL Exported Constants
-  * @{
-  */
+ * @{
+ */
 /************** I2C Address *****************/
 
 #define LSM6DSL_ACC_GYRO_I2C_ADDRESS_LOW    0xD4  // SAD[0] = 0
@@ -194,10 +194,10 @@ extern "C" {
 #define LSM6DSL_ACC_GYRO_MAG_OFFZ_H                   0x32
 
 /* Accelero Full_ScaleSelection */
-#define LSM6DSL_ACC_FULLSCALE_2G          ((uint8_t)0x00) /*!< ±2 g */
-#define LSM6DSL_ACC_FULLSCALE_4G          ((uint8_t)0x08) /*!< ±4 g */
-#define LSM6DSL_ACC_FULLSCALE_8G          ((uint8_t)0x0C) /*!< ±8 g */
-#define LSM6DSL_ACC_FULLSCALE_16G         ((uint8_t)0x04) /*!< ±16 g */
+#define LSM6DSL_ACC_FULLSCALE_2G          ((uint8_t)0x00) /*!< ï¿½2 g */
+#define LSM6DSL_ACC_FULLSCALE_4G          ((uint8_t)0x08) /*!< ï¿½4 g */
+#define LSM6DSL_ACC_FULLSCALE_8G          ((uint8_t)0x0C) /*!< ï¿½8 g */
+#define LSM6DSL_ACC_FULLSCALE_16G         ((uint8_t)0x04) /*!< ï¿½16 g */
 
 /* Accelero Full Scale Sensitivity */
 #define LSM6DSL_ACC_SENSITIVITY_2G     ((float)0.061f)  /*!< accelerometer sensitivity with 2 g full scale  [mgauss/LSB] */
@@ -229,7 +229,7 @@ extern "C" {
 #define LSM6DSL_GYRO_FS_1000           ((uint8_t)0x08)  
 #define LSM6DSL_GYRO_FS_2000           ((uint8_t)0x0C)
 
-/* Gyro Full Scale Sensitivity */ 
+/* Gyro Full Scale Sensitivity */
 #define LSM6DSL_GYRO_SENSITIVITY_245DPS            ((float)8.750f) /**< Sensitivity value for 245 dps full scale  [mdps/LSB] */ 
 #define LSM6DSL_GYRO_SENSITIVITY_500DPS            ((float)17.50f) /**< Sensitivity value for 500 dps full scale  [mdps/LSB] */ 
 #define LSM6DSL_GYRO_SENSITIVITY_1000DPS           ((float)35.00f) /**< Sensitivity value for 1000 dps full scale [mdps/LSB] */ 
@@ -239,73 +239,75 @@ extern "C" {
 #define LSM6DSL_ACC_GYRO_LP_G_DISABLED     ((uint8_t)0x00) /* LP disabled*/
 #define LSM6DSL_ACC_GYRO_LP_G_ENABLED      ((uint8_t)0x80) /* LP enabled*/
 
-/* Block Data Update */  
+/* Block Data Update */
 #define LSM6DSL_BDU_CONTINUOS               ((uint8_t)0x00)
 #define LSM6DSL_BDU_BLOCK_UPDATE            ((uint8_t)0x40)
 
 /* Auto-increment */
 #define LSM6DSL_ACC_GYRO_IF_INC_DISABLED    ((uint8_t)0x00)
 #define LSM6DSL_ACC_GYRO_IF_INC_ENABLED     ((uint8_t)0x04)
-  
+
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup LSM6DSL_AccExported_Functions ACCELEROMETER Exported functions
-  * @{
-  */ 
-void    LSM6DSL_AccInit(uint16_t InitStruct);
-void    LSM6DSL_AccDeInit(void);
+ * @{
+ */
+void LSM6DSL_AccInit(uint16_t InitStruct);
+void LSM6DSL_AccDeInit(void);
 uint8_t LSM6DSL_AccReadID(void);
-void    LSM6DSL_AccLowPower(uint16_t status);
-void    LSM6DSL_AccReadXYZ(int16_t* pData);
+void LSM6DSL_AccLowPower(uint16_t status);
+void LSM6DSL_AccReadXYZ(int16_t *pData);
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /** @defgroup LSM6DSL_AccImported_Globals  ACCELEROMETER Imported Globals
-  * @{
-  */
+ * @{
+ */
 extern ACCELERO_DrvTypeDef Lsm6dslAccDrv;
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup LSM6DSL_GyroExported_Functions GYROSCOPE Exported functions
-  * @{
-  */
-/* Sensor Configuration Functions */ 
-void    LSM6DSL_GyroInit(uint16_t InitStruct);
-void    LSM6DSL_GyroDeInit(void);
+ * @{
+ */
+/* Sensor Configuration Functions */
+void LSM6DSL_GyroInit(uint16_t InitStruct);
+void LSM6DSL_GyroDeInit(void);
 uint8_t LSM6DSL_GyroReadID(void);
-void    LSM6DSL_GyroLowPower(uint16_t status);
-void    LSM6DSL_GyroReadXYZAngRate(float *pfData);
+void LSM6DSL_GyroLowPower(uint16_t status);
+void LSM6DSL_GyroReadXYZAngRate(float *pfData);
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup LSM6DSL_GyroImported_Globals  GYROSCOPE Imported Globals
-  * @{
-  */
+ * @{
+ */
 /* Gyroscope driver structure */
 extern GYRO_DrvTypeDef Lsm6dslGyroDrv;
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup LSM6DSL_Imported_Functions LSM6DSL Imported Functions
  * @{
  */
 /* IO functions */
-extern void     SENSOR_IO_Init(void);
-extern void     SENSOR_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
-extern uint8_t  SENSOR_IO_Read(uint8_t Addr, uint8_t Reg);
-extern uint16_t SENSOR_IO_ReadMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer, uint16_t Length);
-extern void     SENSOR_IO_WriteMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer, uint16_t Length);
+extern void SENSOR_IO_Init(void);
+extern void SENSOR_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
+extern uint8_t SENSOR_IO_Read(uint8_t Addr, uint8_t Reg);
+extern uint16_t SENSOR_IO_ReadMultiple(uint8_t Addr, uint8_t Reg,
+		uint8_t *Buffer, uint16_t Length);
+extern void SENSOR_IO_WriteMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer,
+		uint16_t Length);
 /**
-  * @}
-  */
+ * @}
+ */
 
 #ifdef __cplusplus
 }
@@ -314,15 +316,15 @@ extern void     SENSOR_IO_WriteMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buff
 #endif /* __LSM6DSL__H */
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

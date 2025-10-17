@@ -1,22 +1,22 @@
 /**
-  ******************************************************************************
-  * @file    hx8347g.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the functions prototypes for the hx8347g.c
-  *          driver.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */ 
+ ******************************************************************************
+ * @file    hx8347g.h
+ * @author  MCD Application Team
+ * @brief   This file contains all the functions prototypes for the hx8347g.c
+ *          driver.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2016 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __HX8347G_H
@@ -30,42 +30,42 @@
 #include "../Common/lcd.h"
 
 /** @addtogroup BSP
-  * @{
-  */ 
+ * @{
+ */
 
 /** @addtogroup Components
-  * @{
-  */ 
-  
+ * @{
+ */
+
 /** @addtogroup hx8347g
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup HX8347G_Exported_Types
-  * @{
-  */
-   
+ * @{
+ */
+
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /** @defgroup HX8347G_Exported_Constants
-  * @{
-  */
+ * @{
+ */
 /** 
-  * @brief  HX8347G ID  
-  */  
+ * @brief  HX8347G ID  
+ */
 #define  HX8347G_ID    0x0075
-   
+
 /** 
-  * @brief  HX8347G Size  
-  */  
+ * @brief  HX8347G Size  
+ */
 #define  HX8347G_LCD_PIXEL_WIDTH    ((uint16_t)320)
 #define  HX8347G_LCD_PIXEL_HEIGHT   ((uint16_t)240)
-   
+
 /** 
-  * @brief  HX8347G Registers  
-  */ 
+ * @brief  HX8347G Registers  
+ */
 #define LCD_REG_0             0x00
 #define LCD_REG_1             0x01
 #define LCD_REG_2             0x02
@@ -195,46 +195,48 @@
 #define LCD_REG_255           0xFF
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /** @defgroup HX8347G_Exported_Functions
-  * @{
-  */ 
-void     hx8347g_Init(void);
+ * @{
+ */
+void hx8347g_Init(void);
 uint16_t hx8347g_ReadID(void);
-void     hx8347g_WriteReg(uint8_t LCDReg, uint16_t LCDRegValue);
+void hx8347g_WriteReg(uint8_t LCDReg, uint16_t LCDRegValue);
 uint16_t hx8347g_ReadReg(uint8_t LCDReg);
 
-void     hx8347g_DisplayOn(void);
-void     hx8347g_DisplayOff(void);
-void     hx8347g_SetCursor(uint16_t Xpos, uint16_t Ypos);
-void     hx8347g_WritePixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode);
+void hx8347g_DisplayOn(void);
+void hx8347g_DisplayOff(void);
+void hx8347g_SetCursor(uint16_t Xpos, uint16_t Ypos);
+void hx8347g_WritePixel(uint16_t Xpos, uint16_t Ypos, uint16_t RGBCode);
 uint16_t hx8347g_ReadPixel(uint16_t Xpos, uint16_t Ypos);
 
-void     hx8347g_DrawHLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length);
-void     hx8347g_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos, uint16_t Length);
-void     hx8347g_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp);
+void hx8347g_DrawHLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos,
+		uint16_t Length);
+void hx8347g_DrawVLine(uint16_t RGBCode, uint16_t Xpos, uint16_t Ypos,
+		uint16_t Length);
+void hx8347g_DrawBitmap(uint16_t Xpos, uint16_t Ypos, uint8_t *pbmp);
 
-void     hx8347g_SetDisplayWindow(uint16_t Xpos, uint16_t Ypos, uint16_t Width, uint16_t Height);
-
+void hx8347g_SetDisplayWindow(uint16_t Xpos, uint16_t Ypos, uint16_t Width,
+		uint16_t Height);
 
 uint16_t hx8347g_GetLcdPixelWidth(void);
 uint16_t hx8347g_GetLcdPixelHeight(void);
 
 /* LCD driver structure */
-extern LCD_DrvTypeDef   hx8347g_drv;
+extern LCD_DrvTypeDef hx8347g_drv;
 
 /* LCD IO functions */
-void     LCD_IO_Init(void);
-void     LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size);
-void     LCD_IO_WriteReg(uint8_t Reg);
+void LCD_IO_Init(void);
+void LCD_IO_WriteMultipleData(uint8_t *pData, uint32_t Size);
+void LCD_IO_WriteReg(uint8_t Reg);
 uint16_t LCD_IO_ReadData(uint16_t Reg);
-void     LCD_Delay (uint32_t delay);
+void LCD_Delay(uint32_t delay);
 /**
-  * @}
-  */ 
-      
+ * @}
+ */
+
 #ifdef __cplusplus
 }
 #endif
@@ -242,15 +244,15 @@ void     LCD_Delay (uint32_t delay);
 #endif /* __HX8347G_H */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

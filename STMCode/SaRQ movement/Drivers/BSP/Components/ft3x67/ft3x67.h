@@ -1,22 +1,22 @@
 /**
-  ******************************************************************************
-  * @file    ft3x67.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the functions prototypes for the
-  *          ft3x67.c touch screen driver.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    ft3x67.h
+ * @author  MCD Application Team
+ * @brief   This file contains all the functions prototypes for the
+ *          ft3x67.c touch screen driver.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2017 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __FT3X67_H
@@ -30,23 +30,23 @@ extern "C" {
 #include "../Common/ts.h"
 
 /** @addtogroup BSP
-  * @{
-  */
+ * @{
+ */
 
 /** @addtogroup Component
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup FT3X67
-  * @{
-  */
+ * @{
+ */
 
 /* Exported types ------------------------------------------------------------*/
 /* Exported constants --------------------------------------------------------*/
 
 /** @defgroup FT3X67_Exported_Constants
-  * @{
-  */
+ * @{
+ */
 
 /* Maximum border values of the touchscreen pad */
 #define FT3X67_MAX_WIDTH                    390U     /* Touchscreen pad max width   */
@@ -191,79 +191,77 @@ extern "C" {
 #define FT3X67_GEST_ID_DOUBLE_CLICK         0x24U
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /* Exported macro ------------------------------------------------------------*/
 /* Exported functions --------------------------------------------------------*/
 
 /** @defgroup FT3X67_Exported_Functions
-  * @{
-  */
+ * @{
+ */
 
-void     ft3x67_Init(uint16_t DeviceAddr);
-void     ft3x67_Reset(uint16_t DeviceAddr);
+void ft3x67_Init(uint16_t DeviceAddr);
+void ft3x67_Reset(uint16_t DeviceAddr);
 uint16_t ft3x67_ReadID(uint16_t DeviceAddr);
-void     ft3x67_TS_Start(uint16_t DeviceAddr);
-uint8_t  ft3x67_TS_DetectTouch(uint16_t DeviceAddr);
-void     ft3x67_TS_GetXY(uint16_t DeviceAddr, uint16_t *X, uint16_t *Y);
-void     ft3x67_TS_EnableIT(uint16_t DeviceAddr);
-void     ft3x67_TS_DisableIT(uint16_t DeviceAddr);
-uint8_t  ft3x67_TS_ITStatus (uint16_t DeviceAddr);
-void     ft3x67_TS_ClearIT (uint16_t DeviceAddr);
-void     ft3x67_TS_GestureConfig(uint16_t DeviceAddr, uint32_t Activation);
-void     ft3x67_TS_GetGestureID(uint16_t DeviceAddr, uint32_t * pGestureId);
-void     ft3x67_TS_GetTouchInfo(uint16_t   DeviceAddr,
-                                uint32_t   touchIdx,
-                                uint32_t * pWeight,
-                                uint32_t * pArea,
-                                uint32_t * pEvent);
+void ft3x67_TS_Start(uint16_t DeviceAddr);
+uint8_t ft3x67_TS_DetectTouch(uint16_t DeviceAddr);
+void ft3x67_TS_GetXY(uint16_t DeviceAddr, uint16_t *X, uint16_t *Y);
+void ft3x67_TS_EnableIT(uint16_t DeviceAddr);
+void ft3x67_TS_DisableIT(uint16_t DeviceAddr);
+uint8_t ft3x67_TS_ITStatus(uint16_t DeviceAddr);
+void ft3x67_TS_ClearIT(uint16_t DeviceAddr);
+void ft3x67_TS_GestureConfig(uint16_t DeviceAddr, uint32_t Activation);
+void ft3x67_TS_GetGestureID(uint16_t DeviceAddr, uint32_t *pGestureId);
+void ft3x67_TS_GetTouchInfo(uint16_t DeviceAddr, uint32_t touchIdx,
+		uint32_t *pWeight, uint32_t *pArea, uint32_t *pEvent);
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /* Imported TS IO functions --------------------------------------------------------*/
 
 /** @defgroup FT3X67_Imported_Functions
-  * @{
-  */
+ * @{
+ */
 
 /* TouchScreen (TS) external IO functions */
-extern void     TS_IO_Init(void);
-extern void     TS_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
-extern uint8_t  TS_IO_Read(uint8_t Addr, uint8_t Reg);
-extern uint16_t TS_IO_ReadMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer, uint16_t Length);
-extern void     TS_IO_Delay(uint32_t Delay);
+extern void TS_IO_Init(void);
+extern void TS_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
+extern uint8_t TS_IO_Read(uint8_t Addr, uint8_t Reg);
+extern uint16_t TS_IO_ReadMultiple(uint8_t Addr, uint8_t Reg, uint8_t *Buffer,
+		uint16_t Length);
+extern void TS_IO_Delay(uint32_t Delay);
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /* Imported global variables --------------------------------------------------------*/
 
 /** @defgroup FT3X67_Imported_Globals
-  * @{
-  */
+ * @{
+ */
 
 /* Touch screen driver structure */
 extern TS_DrvTypeDef ft3x67_ts_drv;
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 #ifdef __cplusplus
 }

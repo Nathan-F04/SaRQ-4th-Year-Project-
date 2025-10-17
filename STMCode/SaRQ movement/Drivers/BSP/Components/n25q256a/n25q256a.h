@@ -1,21 +1,21 @@
 /**
-  ******************************************************************************
-  * @file    n25q256a.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the description of the N25Q256A QSPI memory.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */ 
+ ******************************************************************************
+ * @file    n25q256a.h
+ * @author  MCD Application Team
+ * @brief   This file contains all the description of the N25Q256A QSPI memory.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __N25Q256A_H
@@ -28,32 +28,32 @@
 /* Includes ------------------------------------------------------------------*/
 
 /** @addtogroup BSP
-  * @{
-  */ 
+ * @{
+ */
 
 /** @addtogroup Components
-  * @{
-  */ 
-  
+ * @{
+ */
+
 /** @addtogroup n25q256a
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup N25Q256A_Exported_Types
-  * @{
-  */
-   
+ * @{
+ */
+
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /** @defgroup N25Q256A_Exported_Constants
-  * @{
-  */
-   
+ * @{
+ */
+
 /** 
-  * @brief  N25Q256A Configuration  
-  */  
+ * @brief  N25Q256A Configuration  
+ */
 #define N25Q256A_FLASH_SIZE                  0x2000000 /* 256 MBits => 32MBytes */
 #define N25Q256A_SECTOR_SIZE                 0x10000   /* 512 sectors of 64KBytes */
 #define N25Q256A_SUBSECTOR_SIZE              0x1000    /* 8192 subsectors of 4kBytes */
@@ -69,8 +69,8 @@
 #define N25Q256A_SUBSECTOR_ERASE_MAX_TIME    800
 
 /** 
-  * @brief  N25Q256A Commands  
-  */  
+ * @brief  N25Q256A Commands  
+ */
 /* Reset Operations */
 #define RESET_ENABLE_CMD                     0x66
 #define RESET_MEMORY_CMD                     0x99
@@ -165,10 +165,10 @@
 /* Quad Operations */
 #define ENTER_QUAD_CMD                       0x35
 #define EXIT_QUAD_CMD                        0xF5
-   
+
 /** 
-  * @brief  N25Q256A Registers  
-  */ 
+ * @brief  N25Q256A Registers  
+ */
 /* Status Register */
 #define N25Q256A_SR_WIP                      ((uint8_t)0x01)    /*!< Write in progress */
 #define N25Q256A_SR_WREN                     ((uint8_t)0x02)    /*!< Write enable latch */
@@ -212,16 +212,16 @@
 #define N25Q256A_FSR_READY                   ((uint8_t)0x80)    /*!< Ready or command in progress */
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /** @defgroup N25Q256A_Exported_Functions
-  * @{
-  */ 
+ * @{
+ */
 /**
-  * @}
-  */ 
-      
+ * @}
+ */
+
 #ifdef __cplusplus
 }
 #endif
@@ -229,15 +229,15 @@
 #endif /* __N25Q256A_H */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */
-  
+ * @}
+ */
+
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

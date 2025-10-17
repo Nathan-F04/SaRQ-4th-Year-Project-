@@ -1,21 +1,21 @@
 /**
-  ******************************************************************************
-  * @file    cs43l22.h
-  * @author  MCD Application Team
-  * @brief   This file contains all the functions prototypes for the cs43l22.c driver.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+ ******************************************************************************
+ * @file    cs43l22.h
+ * @author  MCD Application Team
+ * @brief   This file contains all the functions prototypes for the cs43l22.c driver.
+ ******************************************************************************
+ * @attention
+ *
+ * <h2><center>&copy; Copyright (c) 2015 STMicroelectronics.
+ * All rights reserved.</center></h2>
+ *
+ * This software component is licensed by ST under BSD 3-Clause license,
+ * the "License"; You may not use this file except in compliance with the
+ * License. You may obtain a copy of the License at:
+ *                        opensource.org/licenses/BSD-3-Clause
+ *
+ ******************************************************************************
+ */
 
 /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __CS43L22_H
@@ -25,28 +25,28 @@
 #include "../Common/audio.h"
 
 /** @addtogroup BSP
-  * @{
-  */ 
+ * @{
+ */
 
 /** @addtogroup Component
-  * @{
-  */ 
-  
+ * @{
+ */
+
 /** @addtogroup CS43L22
-  * @{
-  */
+ * @{
+ */
 
 /** @defgroup CS43L22_Exported_Types
-  * @{
-  */
+ * @{
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /** @defgroup CS43L22_Exported_Constants
-  * @{
-  */ 
+ * @{
+ */
 
 /******************************************************************************/
 /***************************  Codec User defines ******************************/
@@ -128,49 +128,50 @@
 /****************************** REGISTER MAPPING ******************************/
 /******************************************************************************/
 /** 
-  * @brief  CS43L22 ID  
-  */  
+ * @brief  CS43L22 ID  
+ */
 #define  CS43L22_ID            0xE0
 #define  CS43L22_ID_MASK       0xF8
 /**
-  * @brief Chip ID Register: Chip I.D. and Revision Register
-  *  Read only register
-  *  Default value: 0x01
-  *  [7:3] CHIPID[4:0]: I.D. code for the CS43L22.
-  *        Default value: 11100b
-  *  [2:0] REVID[2:0]: CS43L22 revision level.
-  *        Default value: 
-  *        000 - Rev A0
-  *        001 - Rev A1
-  *        010 - Rev B0
-  *        011 - Rev B1
-  */
+ * @brief Chip ID Register: Chip I.D. and Revision Register
+ *  Read only register
+ *  Default value: 0x01
+ *  [7:3] CHIPID[4:0]: I.D. code for the CS43L22.
+ *        Default value: 11100b
+ *  [2:0] REVID[2:0]: CS43L22 revision level.
+ *        Default value: 
+ *        000 - Rev A0
+ *        001 - Rev A1
+ *        010 - Rev B0
+ *        011 - Rev B1
+ */
 #define CS43L22_CHIPID_ADDR    0x01
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /** @defgroup CS43L22_Exported_Macros
-  * @{
-  */
+ * @{
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /** @defgroup CS43L22_Exported_Functions
-  * @{
-  */
-    
+ * @{
+ */
+
 /*------------------------------------------------------------------------------
-                           Audio Codec functions 
-------------------------------------------------------------------------------*/
+ Audio Codec functions 
+ ------------------------------------------------------------------------------*/
 /* High Layer codec functions */
-uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice, uint8_t Volume, uint32_t AudioFreq);
-void     cs43l22_DeInit(void);
+uint32_t cs43l22_Init(uint16_t DeviceAddr, uint16_t OutputDevice,
+		uint8_t Volume, uint32_t AudioFreq);
+void cs43l22_DeInit(void);
 uint32_t cs43l22_ReadID(uint16_t DeviceAddr);
-uint32_t cs43l22_Play(uint16_t DeviceAddr, uint16_t* pBuffer, uint16_t Size);
+uint32_t cs43l22_Play(uint16_t DeviceAddr, uint16_t *pBuffer, uint16_t Size);
 uint32_t cs43l22_Pause(uint16_t DeviceAddr);
 uint32_t cs43l22_Resume(uint16_t DeviceAddr);
 uint32_t cs43l22_Stop(uint16_t DeviceAddr, uint32_t Cmd);
@@ -181,30 +182,30 @@ uint32_t cs43l22_SetOutputMode(uint16_t DeviceAddr, uint8_t Output);
 uint32_t cs43l22_Reset(uint16_t DeviceAddr);
 
 /* AUDIO IO functions */
-void      AUDIO_IO_Init(void);
-void      AUDIO_IO_DeInit(void);
-void      AUDIO_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
-uint8_t   AUDIO_IO_Read(uint8_t Addr, uint8_t Reg);
+void AUDIO_IO_Init(void);
+void AUDIO_IO_DeInit(void);
+void AUDIO_IO_Write(uint8_t Addr, uint8_t Reg, uint8_t Value);
+uint8_t AUDIO_IO_Read(uint8_t Addr, uint8_t Reg);
 
 /* Audio driver structure */
-extern AUDIO_DrvTypeDef   cs43l22_drv;
+extern AUDIO_DrvTypeDef cs43l22_drv;
 
 #endif /* __CS43L22_H */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /**
-  * @}
-  */
+ * @}
+ */
 
 /**
-  * @}
-  */ 
+ * @}
+ */
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

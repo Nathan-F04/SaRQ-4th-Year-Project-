@@ -275,8 +275,9 @@
 
 
 #else
-#error Unknown compiler.
+  #error Unknown compiler.
 #endif
+
 
 #endif /* __CMSIS_COMPILER_H */
 

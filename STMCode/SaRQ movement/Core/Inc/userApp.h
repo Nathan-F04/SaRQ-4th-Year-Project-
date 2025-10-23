@@ -11,5 +11,5 @@
 #include "main.h"
 
 void userApp();	//Application code function
-
+void TIM2_Handler();	//Handler for timer 2
 #endif /* INC_USERAPP_H_ */

@@ -857,9 +857,6 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 	if (htim->Instance == TIM7) {	//TIM7 interrupt used for real time stats
 		ulHighFrequencyTimerTicks++;
 	}
-	if (htim->Instance == TIM2) {	//TIM7 interrupt used for real time stats
-		TIM2_Handler();
-	}
 
   /* USER CODE END Callback 1 */
 }

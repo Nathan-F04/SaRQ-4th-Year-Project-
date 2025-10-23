@@ -34,25 +34,11 @@ extern UART_HandleTypeDef huart1;
 uint8_t flag = 0;
 uint32_t pulse_length = 0;
 static void timerTask(void * pvParameters);
-void servo(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t angle);
+uint16_t servo(uint16_t anglePassed);
 // _write function used for printf
 int _write(int file, char *ptr, int len) {
 	HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
 	return len;
-}
-
-void TIM2_Handler(){
-	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-	//xSemaphoreGiveFromISR(timerSemaphore, &xHigherPriorityTaskWoken);
-	if(flag == 0){
-	 pulse_length = 212 +(0*(851-212)/180);
-	__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1, pulse_length);
-	}
-	else{
-		 pulse_length = 212 +(180*(851-212)/180);
-		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1, pulse_length);
-	}
-	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 
@@ -71,19 +57,30 @@ void userApp() {
 
 void timerTask(void * pvParameters) {
 	printf("Starting timer task\r\n\n");
-	//Task to test range for servo testing
+	//Task to pass angle for servo with a simple loop
+	uint16_t anglePassed = 0;
+	uint32_t CCR_Return=0;
 	while(1) {
-		for( uint16_t i = 138; i<1044; i++){
-			i+=10;
-			printf("I is %lu\r\n\n", i);
-			vTaskDelay(pdMS_TO_TICKS(100));
+		if(anglePassed >= 180){
+			anglePassed = 0;
 		}
+		else{
+			anglePassed += 10;
+		}
+		//Get CCR so that each task can assaign based on its own CCR and timer
+		CCR_Return = servo(anglePassed);
+		TIM2->CCR1 = CCR_Return;
+		printf("CCR1 is %lu\r\n\n", CCR_Return);
+		vTaskDelay(pdMS_TO_TICKS(1000));
 	}
 }
 
-void servo(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t angle){
-	uint32_t pulse_length = 425 +( angle*(851-425)/180);
-	__HAL_TIM_SET_COMPARE(htim, channel, pulse_length);
+uint16_t servo(uint16_t anglePassed){
+	//Servo function calculated CCR value and returns it
+	//Remove CCR_Val after testing complete
+	uint16_t Min_ARR= 138, Max_ARR=1044, AngleRange=180;
+	return ((Max_ARR-Min_ARR)*anglePassed)/AngleRange + Min_ARR;
 }
+
 
 

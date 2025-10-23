@@ -34,25 +34,10 @@ extern UART_HandleTypeDef huart1;
 uint8_t flag = 0;
 uint32_t pulse_length = 0;
 static void timerTask(void * pvParameters);
-void servo(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t angle);
 // _write function used for printf
 int _write(int file, char *ptr, int len) {
 	HAL_UART_Transmit(&huart1, (uint8_t *)ptr, len, HAL_MAX_DELAY);
 	return len;
-}
-
-void TIM2_Handler(){
-	BaseType_t xHigherPriorityTaskWoken = pdFALSE;
-	//xSemaphoreGiveFromISR(timerSemaphore, &xHigherPriorityTaskWoken);
-	if(flag == 0){
-	 pulse_length = 212 +(0*(851-212)/180);
-	__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1, pulse_length);
-	}
-	else{
-		 pulse_length = 212 +(180*(851-212)/180);
-		__HAL_TIM_SET_COMPARE(&htim2,TIM_CHANNEL_1, pulse_length);
-	}
-	portYIELD_FROM_ISR(xHigherPriorityTaskWoken);
 }
 
 
@@ -80,10 +65,4 @@ void timerTask(void * pvParameters) {
 		}
 	}
 }
-
-void servo(TIM_HandleTypeDef *htim, uint32_t channel, uint8_t angle){
-	uint32_t pulse_length = 425 +( angle*(851-425)/180);
-	__HAL_TIM_SET_COMPARE(htim, channel, pulse_length);
-}
-
 

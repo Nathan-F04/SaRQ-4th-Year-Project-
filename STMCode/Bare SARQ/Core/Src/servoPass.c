@@ -8,10 +8,6 @@
 #include "userApp.h"
 #include <stdio.h>
 
-//Add the relevant FreeRTOS header files here
-#include "FreeRTOS.h"
-#include "task.h"
-
 //--------------------------------------------------------------
 //used for real time stats, do not delete code from this section
 extern TIM_HandleTypeDef htim7;
@@ -31,9 +27,10 @@ unsigned long getRunTimeCounterValue(void)
 //----------------------------------------------------------------
 
 extern UART_HandleTypeDef huart1;
+
 uint8_t flag = 0;
 uint32_t pulse_length = 0;
-static void timerTask(void * pvParameters);
+
 uint16_t servo(uint16_t anglePassed);
 // _write function used for printf
 int _write(int file, char *ptr, int len) {
@@ -44,22 +41,12 @@ int _write(int file, char *ptr, int len) {
 
 void userApp() {
 	printf("Starting application\r\n\n");
-
-	xTaskCreate(timerTask, "Timer Task", 200, NULL, 2, NULL);
-	TIM2->CCR1 = 0;
-	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
-	vTaskStartScheduler();
-
-	while(1) {
-
-	}
-}
-
-void timerTask(void * pvParameters) {
-	printf("Starting timer task\r\n\n");
 	//Task to pass angle for servo with a simple loop
 	uint16_t anglePassed = 0;
 	uint32_t CCR_Return=0;
+	TIM2->CCR1 = 0;
+	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
 	while(1) {
 		if(anglePassed >= 220){
 			anglePassed = 0;
@@ -71,8 +58,7 @@ void timerTask(void * pvParameters) {
 		CCR_Return = servo(anglePassed);
 		TIM2->CCR1 = CCR_Return;
 		printf("Servo angle is %hu\r\n\n", anglePassed);
-		//printf("CCR1 is %lu\r\n\n", CCR_Return);
-		vTaskDelay(pdMS_TO_TICKS(1000));
+		HAL_Delay(500);
 	}
 }
 

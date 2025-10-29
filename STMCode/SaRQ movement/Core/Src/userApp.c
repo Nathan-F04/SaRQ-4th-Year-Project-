@@ -61,7 +61,7 @@ void timerTask(void * pvParameters) {
 	uint16_t anglePassed = 0;
 	uint32_t CCR_Return=0;
 	while(1) {
-		if(anglePassed >= 180){
+		if(anglePassed >= 220){
 			anglePassed = 0;
 		}
 		else{
@@ -70,15 +70,15 @@ void timerTask(void * pvParameters) {
 		//Get CCR so that each task can assaign based on its own CCR and timer
 		CCR_Return = servo(anglePassed);
 		TIM2->CCR1 = CCR_Return;
-		printf("CCR1 is %lu\r\n\n", CCR_Return);
+		printf("Servo angle is %hu\r\n\n", anglePassed);
+		//printf("CCR1 is %lu\r\n\n", CCR_Return);
 		vTaskDelay(pdMS_TO_TICKS(1000));
 	}
 }
 
 uint16_t servo(uint16_t anglePassed){
-	//Servo function calculated CCR value and returns it
-	//Remove CCR_Val after testing complete
-	uint16_t Min_ARR= 138, Max_ARR=1044, AngleRange=180;
+	//Servo function calculated CCR value and returns it, angle is 220 as it is the servos max.
+	uint16_t Min_ARR= 139, Max_ARR=1044, AngleRange=220;
 	return ((Max_ARR-Min_ARR)*anglePassed)/AngleRange + Min_ARR;
 }
 

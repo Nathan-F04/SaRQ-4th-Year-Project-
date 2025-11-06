@@ -3,8 +3,8 @@ from math import acos,atan, sqrt, pi
 
 #Globals
 #Length upper and lower here
-LEN_U_L = 57
-LEN_L_L = 110
+LEN_U_L = 5.7
+LEN_L_L = 11
 STARTING_Y = 70
 STARTING_Z = -80
 ANG_C = 30

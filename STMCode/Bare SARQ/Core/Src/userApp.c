@@ -34,10 +34,11 @@ int _write(int file, char *ptr, int len) {
 
 void userApp() {
 	printf("Starting application\r\n\n");
-	char rx_buffer[50];
+	char rx_buffer[14];
 	while (1) {
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
 		printf("Received: %s\n", rx_buffer);
+		memset(buffer, 0, sizeof(buffer));
 	}
 }
 

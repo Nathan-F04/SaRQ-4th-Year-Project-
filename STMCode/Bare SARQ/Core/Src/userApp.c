@@ -7,7 +7,7 @@
 
 #include "userApp.h"
 #include <stdio.h>
-
+#include <string.h>
 //--------------------------------------------------------------
 //used for real time stats, do not delete code from this section
 extern TIM_HandleTypeDef htim7;
@@ -38,7 +38,7 @@ void userApp() {
 	while (1) {
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
 		printf("Received: %s\n", rx_buffer);
-		memset(buffer, 0, sizeof(buffer));
+		memset(rx_buffer, 0, sizeof(rx_buffer));
 	}
 }
 

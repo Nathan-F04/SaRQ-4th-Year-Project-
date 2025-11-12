@@ -8,6 +8,8 @@
 #include "userApp.h"
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include <string.h>
 //--------------------------------------------------------------
 //used for real time stats, do not delete code from this section
 extern TIM_HandleTypeDef htim7;
@@ -46,14 +48,16 @@ void userApp() {
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 	while (1) {
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
-		printf("Received: %s\n", rx_buffer);
+		printf("Received: %s\r\n", rx_buffer);
 		//Read code from atoi
 		msg = atoi(rx_buffer);
+		//Reset before looping again
+		memset(rx_buffer, 0, sizeof(rx_buffer));
 		//Case statement to determine movement
 		switch(msg){
 		//Forward - prerequiste vals and writes
 		case 1:
-			printf("1 received, going forward\r\n");
+			//printf("1 received, going forward\r\n");
 			//Get CCR so that each task can assaign based on its own CCR and timer
 			//Set angle passed for each based on ik
 			anglePassed = 100;
@@ -78,14 +82,13 @@ void userApp() {
 			printf("Invalid number received\r\n");
 			break;
 		}
-		//Reset before looping again
-		memset(rx_buffer, 0, sizeof(rx_buffer));
 	}
+}
+
 uint16_t servo(uint16_t anglePassed) {
 	//Servo function calculated CCR value and returns it, angle is 220 as it is the servos max.
 	uint16_t Min_ARR = 139, Max_ARR = 1044, AngleRange = 220;
 	return ((Max_ARR - Min_ARR) * anglePassed) / AngleRange + Min_ARR;
-}
 }
 
 

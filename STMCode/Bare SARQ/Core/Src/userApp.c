@@ -38,7 +38,7 @@ uint16_t servo(uint16_t anglePassed);
 
 void userApp() {
 	printf("Starting application\r\n\n");
-	char rx_buffer[3]; //number + carraige return and newline
+	char rx_buffer[2]; //number + carraige return and newline
 	uint8_t msg = 0;
 
 	//pwm starts here and ccrms etc

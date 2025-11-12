@@ -3,11 +3,11 @@ from math import acos,atan, sqrt, pi
 
 #Globals
 #Length upper and lower here
-LEN_U_L = 5.7
-LEN_L_L = 11
-STARTING_Y = 70
-STARTING_Z = -80
-ANG_C = 30
+LEN_U_L = 6
+LEN_L_L = 11.2
+STARTING_Y = 5
+STARTING_Z = 5
+ANG_C = 9.5
 #Beginning of inverse kinematics calculations
 #Check if I need to change to degrees instead of radians
 def servo_calc(x_coord, y_coord, z_coord):
@@ -67,4 +67,4 @@ def hyp_side_calc(hyp_top, z_len):
     """Calculates side hypotenuse"""
     return sqrt((pow(hyp_top,2)+ pow(z_len,2)))
 
-servo_calc(0,50, 70)
+servo_calc(0,0, 0) 

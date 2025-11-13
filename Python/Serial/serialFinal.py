@@ -14,7 +14,7 @@ ser = serial.Serial(
 try:
     while True:
         # Send message
-        ser.write(b"1\r\n")
+        ser.write(b"1")
         print("Sent: 1")
 
         # Receive response (if STM32 replies)

@@ -42,7 +42,7 @@ void userApp() {
 	uint8_t msg = 0;
 
 	//pwm starts here and ccrms etc
-	uint16_t anglePassed = 0;
+	uint16_t anglePassed = 100;
 	uint32_t CCR_Return = 0;
 	TIM2->CCR1 = 0;
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
@@ -60,7 +60,7 @@ void userApp() {
 			//printf("1 received, going forward\r\n");
 			//Get CCR so that each task can assaign based on its own CCR and timer
 			//Set angle passed for each based on ik
-			anglePassed = 100;
+			anglePassed = anglePassed-1;
 			CCR_Return = servo(anglePassed);
 			TIM2->CCR1 = CCR_Return;
 			HAL_Delay(500);

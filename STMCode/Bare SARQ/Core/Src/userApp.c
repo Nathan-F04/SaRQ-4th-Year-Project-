@@ -38,7 +38,7 @@ uint16_t servo(uint16_t anglePassed);
 
 void userApp() {
 	printf("Starting application\r\n\n");
-	char rx_buffer[2]; //number + carraige return and newline
+	char rx_buffer[1]; //number + carraige return and newline
 	uint8_t msg = 0;
 
 	//pwm starts here and ccrms etc
@@ -82,6 +82,8 @@ void userApp() {
 			printf("Invalid number received\r\n");
 			break;
 		}
+		//reset msg
+		msg = 0;
 	}
 }
 
@@ -90,5 +92,3 @@ uint16_t servo(uint16_t anglePassed) {
 	uint16_t Min_ARR = 139, Max_ARR = 1044, AngleRange = 220;
 	return ((Max_ARR - Min_ARR) * anglePassed) / AngleRange + Min_ARR;
 }
-
-

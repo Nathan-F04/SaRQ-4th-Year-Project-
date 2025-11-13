@@ -59,8 +59,8 @@ void userApp() {
 }
 
 uint16_t servo(uint16_t anglePassed) {
-	//Servo function calculated CCR value and returns it, angle is 220 as it is the servos max.
-	uint16_t Min_ARR = 139, Max_ARR = 1044, AngleRange = 220;
+	//Servo function calculated CCR value and returns it, angle is 210 as it is the servos max.
+	uint16_t Min_ARR = 1120, Max_ARR = 8495, AngleRange = 210;
 	return ((Max_ARR - Min_ARR) * anglePassed) / AngleRange + Min_ARR;
 }
 

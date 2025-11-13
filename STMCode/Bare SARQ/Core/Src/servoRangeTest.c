@@ -46,7 +46,7 @@ void userApp() {
 		for (uint16_t i = 139; i < 1044; i++) {
 			i += 10;
 			printf("I is %lu\r\n\n", i);
-			vTaskDelay(pdMS_TO_TICKS(100));
+			HAL_Delay(500);
 		}
 	}
 }

@@ -45,16 +45,17 @@ void userApp() {
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
 	while (1) {
-		if (anglePassed >= 220) {
-			anglePassed = 0;
-		} else {
-			anglePassed += 10;
-		}
 		//Get CCR so that each task can assaign based on its own CCR and timer
+		anglePassed = 0;
 		CCR_Return = servo(anglePassed);
 		TIM2->CCR1 = CCR_Return;
 		printf("Servo angle is %hu\r\n\n", anglePassed);
-		HAL_Delay(500);
+		HAL_Delay(2000);
+		anglePassed = 180;
+		CCR_Return = servo(anglePassed);
+		TIM2->CCR1 = CCR_Return;
+		printf("Servo angle is %hu\r\n\n", anglePassed);
+		HAL_Delay(2000);
 	}
 }
 

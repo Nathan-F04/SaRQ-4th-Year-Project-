@@ -43,10 +43,13 @@ void userApp() {
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 
 	while (1) {
-		for (uint16_t i = 139; i < 1044; i++) {
-			i += 10;
-			printf("I is %lu\r\n\n", i);
-			HAL_Delay(500);
-		}
+		printf("0\r\n");
+		TIM2->CCR1 = 1120;
+		HAL_Delay(1000);
+		printf("max\r\n");
+		TIM2->CCR1 = 8495;
+		HAL_Delay(1000);
+
+
 	}
 }

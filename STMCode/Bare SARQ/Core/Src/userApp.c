@@ -20,6 +20,11 @@ extern TIM_HandleTypeDef htim5;
 extern TIM_HandleTypeDef htim7;
 extern TIM_HandleTypeDef htim16;
 
+#define CCReg1 1
+#define CCReg2 2
+#define CCReg3 3
+#define CCReg4 4
+
 extern volatile unsigned long ulHighFrequencyTimerTicks;
 void configureTimerForRunTimeStats(void) {
 	ulHighFrequencyTimerTicks = 0;
@@ -87,7 +92,6 @@ void userApp() {
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
 	while (1) {
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
-		msg = 1;
 		printf("Received: %s\r\n", rx_buffer);
 		//Read code from atoi
 		msg = atoi(rx_buffer);
@@ -101,77 +105,77 @@ void userApp() {
 			//Get CCR so that each task can assaign based on its own CCR and timer
 			//Set angle passed for each based on ik
 
-			//Servo 1 (servos named based on pinout order for now) TIM16 CH1
-			servo(0, 1, &htim16);
-			printf("Servo TIM16 CH1 angle is 0\r\n\n");
-			servo(180, 1, &htim16);
-			printf("Servo angle TIM16 CH1 is 180\r\n\n");
-
-			//Servo 2 TIM4 CH4
-			servo(0, 4, &htim4);
-			printf("Servo angle TIM4 CH4 is 0\r\n\n");
-			servo(180, 4, &htim4);
-			printf("Servo angle TIM4 CH4 is 180\r\n\n");
-
-			//Servo 3 TIM2 CH1
-			servo(0, 1, &htim2);
-			printf("Servo angle TIM2 CH1 is 0\r\n\n");
-			servo(180, 1, &htim2);
-			printf("Servo angle TIM2 CH1 is 180\r\n\n");
-
-			//Servo 4 TIM3 CH1
-			servo(0, 1, &htim3);
-			printf("Servo angle TIM3 CH1 is 0\r\n\n");
-			servo(180, 1, &htim3);
-			printf("Servo angle TIM3 CH1 is 180\r\n\n");
-
-			//Servo 5 TIM3 CH2
-			servo(0, 2, &htim3);
-			printf("Servo angle TIM3 CH2 is 0\r\n\n");
-			servo(180, 2, &htim3);
-			printf("Servo angle TIM3 CH2 is 180\r\n\n");
-
-			//Servo 6 TIM2 CH3
-			servo(0, 3, &htim2);
-			printf("Servo angle TIM2 CH3 is 0\r\n\n");
-			servo(180, 3, &htim2);
-			printf("Servo angle TIM2 CH3 is 180\r\n\n");
-
-			//Servo 7 TIM3 CH4
-			servo(0, 4, &htim3);
-			printf("Servo angle TIM3 CH4 is 0\r\n\n");
-			servo(180, 4, &htim3);
-			printf("Servo angle TIM3 CH4 is 180\r\n\n");
-
-			//Servo 8 TIM5 CH4
-			servo(0, 4, &htim5);
-			printf("Servo angle TIM5 CH4 is 0\r\n\n");
-			servo(180, 4, &htim5);
-			printf("Servo angle TIM5 CH4 is 180\r\n\n");
-
-			//Servo 9 TIM3 CH3
-			servo(0, 3, &htim3);
-			printf("Servo angle TIM3 CH3 is 0\r\n\n");
-			servo(180, 3, &htim3);
-			printf("Servo angle TIM3 CH3 is 180\r\n\n");
-
-			//Servo 10 TIM4 CH3
-			servo(0, 3, &htim4);
-			printf("Servo angle TIM4 CH3 is 0\r\n\n");
-			servo(180, 3, &htim4);
-			printf("Servo angle TIM4 CH3 is 180\r\n\n");
+//			//Servo 1 (servos named based on pinout order for now) TIM16 CH1
+//			servo(0, CCReg1, &htim16);
+//			printf("Servo TIM16 CH1 angle is 0\r\n\n");
+//			servo(180, CCReg1, &htim16);
+//			printf("Servo angle TIM16 CH1 is 180\r\n\n");
+//
+//			//Servo 2 TIM4 CH4
+//			servo(0, CCReg4, &htim4);
+//			printf("Servo angle TIM4 CH4 is 0\r\n\n");
+//			servo(180, CCReg4, &htim4);
+//			printf("Servo angle TIM4 CH4 is 180\r\n\n");
+//
+//			//Servo 3 TIM2 CH1
+//			servo(0, CCReg1, &htim2);
+//			printf("Servo angle TIM2 CH1 is 0\r\n\n");
+//			servo(180, CCReg1, &htim2);
+//			printf("Servo angle TIM2 CH1 is 180\r\n\n");
+//
+//			//Servo 4 TIM3 CH1
+//			servo(0, CCReg1, &htim3);
+//			printf("Servo angle TIM3 CH1 is 0\r\n\n");
+//			servo(180, CCReg1, &htim3);
+//			printf("Servo angle TIM3 CH1 is 180\r\n\n");
+//
+//			//Servo 5 TIM3 CH2
+//			servo(0, CCReg2, &htim3);
+//			printf("Servo angle TIM3 CH2 is 0\r\n\n");
+//			servo(180, CCReg2, &htim3);
+//			printf("Servo angle TIM3 CH2 is 180\r\n\n");
+//
+//			//Servo 6 TIM2 CH3
+//			servo(0, CCReg3, &htim2);
+//			printf("Servo angle TIM2 CH3 is 0\r\n\n");
+//			servo(180, CCReg3, &htim2);
+//			printf("Servo angle TIM2 CH3 is 180\r\n\n");
+//
+//			//Servo 7 TIM3 CH4
+//			servo(0, CCReg4, &htim3);
+//			printf("Servo angle TIM3 CH4 is 0\r\n\n");
+//			servo(180, CCReg4, &htim3);
+//			printf("Servo angle TIM3 CH4 is 180\r\n\n");
+//
+//			//Servo 8 TIM5 CH4
+//			servo(0, CCReg4, &htim5);
+//			printf("Servo angle TIM5 CH4 is 0\r\n\n");
+//			servo(180, CCReg4, &htim5);
+//			printf("Servo angle TIM5 CH4 is 180\r\n\n");
+//
+//			//Servo 9 TIM3 CH3
+//			servo(0, CCReg3, &htim3);
+//			printf("Servo angle TIM3 CH3 is 0\r\n\n");
+//			servo(180, CCReg3, &htim3);
+//			printf("Servo angle TIM3 CH3 is 180\r\n\n");
+//
+//			//Servo 10 TIM4 CH3
+//			servo(0, CCReg3, &htim4);
+//			printf("Servo angle TIM4 CH3 is 0\r\n\n");
+//			servo(180, CCReg3, &htim4);
+//			printf("Servo angle TIM4 CH3 is 180\r\n\n");
 
 			//Servo 11 TIM5 CH1
-			servo(0, 1, &htim5);
+			servo(0, CCReg1, &htim5);
 			printf("Servo angle TIM5 CH1 is 0\r\n\n");
-			servo(180, 1, &htim5);
+			servo(180, CCReg1, &htim5);
 			printf("Servo angle TIM5 CH1 is 180\r\n\n");
 
 
 			//Servo 12 TIM2 CH2
-			servo(0, 2, &htim2);
+			servo(0, CCReg2, &htim2);
 			printf("Servo angle TIM2 CH2 is 0\r\n\n");
-			servo(180, 2, &htim2);
+			servo(180, CCReg2, &htim2);
 			printf("Servo angle TIM2 CH2 is 180\r\n\n");
 			break;
 			//Reverse
@@ -190,8 +194,6 @@ void userApp() {
 			printf("Invalid number received\r\n");
 			break;
 		}
-		//reset msg
-		//msg = 0;
 	}
 }
 
@@ -269,7 +271,7 @@ void servo(uint16_t anglePassed, uint8_t channel, TIM_HandleTypeDef *htim) {
 		}
 	}
 	if (htim->Instance == TIM16) {
-		TIM15->CCR1 = CCR_Return;
+		TIM16->CCR1 = CCR_Return;
 		HAL_Delay(2000);
 	}
 }

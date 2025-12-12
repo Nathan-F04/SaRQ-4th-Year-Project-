@@ -159,24 +159,24 @@ void userApp() {
 //			servo(180, CCReg3, &htim3);
 //			printf("Servo angle TIM3 CH3 is 180\r\n\n");
 //
-//			//Servo 10 TIM4 CH3
-//			servo(0, CCReg3, &htim4);
-//			printf("Servo angle TIM4 CH3 is 0\r\n\n");
-//			servo(180, CCReg3, &htim4);
-//			printf("Servo angle TIM4 CH3 is 180\r\n\n");
+			//Servo 10 TIM4 CH3
+			printf("Setting servo angle TIM4 CH3 is 0\r\n\n");
+			servo(0, CCReg3, &htim4);
+			printf("Setting servo angle TIM4 CH3 is 180\r\n\n");
+			servo(180, CCReg3, &htim4);
 
 			//Servo 11 TIM5 CH1
+			printf("Setting servo angle TIM5 CH1 is 0\r\n\n");
 			servo(0, CCReg1, &htim5);
-			printf("Servo angle TIM5 CH1 is 0\r\n\n");
+			printf("Setting servo angle TIM5 CH1 is 180\r\n\n");
 			servo(180, CCReg1, &htim5);
-			printf("Servo angle TIM5 CH1 is 180\r\n\n");
-
 
 			//Servo 12 TIM2 CH2
+
+			printf("Setting servo angle TIM2 CH2 is 0\r\n\n");
 			servo(0, CCReg2, &htim2);
-			printf("Servo angle TIM2 CH2 is 0\r\n\n");
+			printf("Setting servo angle TIM2 CH2 is 180\r\n\n");
 			servo(180, CCReg2, &htim2);
-			printf("Servo angle TIM2 CH2 is 180\r\n\n");
 			break;
 			//Reverse
 		case 2:

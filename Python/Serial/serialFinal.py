@@ -21,8 +21,7 @@ try:
         if ser.in_waiting > 0:
             received = ser.readline().decode('utf-8').strip()
             print(f"Received: {received}")
-
-        time.sleep(1)
+        time.sleep(20)
 
 except KeyboardInterrupt:
     ser.close()

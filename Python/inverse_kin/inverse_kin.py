@@ -3,10 +3,12 @@ from math import acos,atan, sqrt, pi
 
 #Globals
 #Length upper and lower here
-LEN_U_L = 6
-LEN_L_L = 11.2
-STARTING_Y = 5
-STARTING_Z = 5
+LEN_U_L = 60
+LEN_L_L = 112
+#Y is X axis
+STARTING_Y = 38
+#Z is y axis 
+STARTING_Z = -52
 ANG_C = 9.5
 #Beginning of inverse kinematics calculations
 #Check if I need to change to degrees instead of radians
@@ -16,10 +18,9 @@ def servo_calc(x_coord, y_coord, z_coord):
     s2 = j2_calc(x_coord, y_coord+STARTING_Y, z_coord+STARTING_Z)
     s3 = j3_calc(x_coord, y_coord+STARTING_Y, z_coord+STARTING_Z)
 
-    print(s1)
-    print(s2)
-    print(s3)
-
+    print(f"Hip: {s1}")
+    print(f"Shoulder: {s2}")
+    print(f"Leg: {s3}")
     #for the test to assert completion- may edit later
     return 0
     #Pyserial will eventually be sent below
@@ -32,6 +33,7 @@ def j1_calc(x_len, y_len):
     else:
         j1 = atan(x_len/y_len)
         j1 = (j1*180)/pi
+        j1 = 90-j1
         return j1
 
 def j2_calc(x_len,y_len,z_len):
@@ -46,6 +48,7 @@ def j2_calc(x_len,y_len,z_len):
     #Addition since A is negative - double check
 
     j2 = b + a
+    j2 = 90-j2
     #90 degree diff here
     return j2
 
@@ -67,4 +70,5 @@ def hyp_side_calc(hyp_top, z_len):
     """Calculates side hypotenuse"""
     return sqrt((pow(hyp_top,2)+ pow(z_len,2)))
 
+#X, Y Z is passed or hip, horizontal and vertical
 servo_calc(0,0, 0) 

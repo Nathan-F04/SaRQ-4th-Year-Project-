@@ -160,7 +160,6 @@ void userApp() {
 //			printf("Servo angle TIM3 CH3 is 180\r\n\n");
 //
 			//Servo 10 TIM4 CH3
-
 			printf("Setting servo angle TIM4 CH3 is 0\r\n\n");
 			servo(0, CCReg3, &htim4);
 			printf("Setting servo angle TIM4 CH3 is 180\r\n\n");

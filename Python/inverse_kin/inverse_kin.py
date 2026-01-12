@@ -19,9 +19,9 @@ def servo_calc(x_co_ord, y_co_ord, z_co_ord):
     beta = acos((LEN_U_L**2 + hypotenuse**2 - LEN_L_L**2)/(2*LEN_U_L*hypotenuse)) * 180/pi
     shoulder_a = alpha + beta
     elbow_a = 180 - acos((LEN_U_L**2 + LEN_L_L**2 - hypotenuse**2)/(2*LEN_U_L*LEN_L_L)) * 180/pi
-    
-    print(f"Theta 1 is: {hip_a} Theta 2 is: {shoulder_a} Theta 3 is: {elbow_a} ")
+
+    print(f"Theta 1 (hip) is: {hip_a} Theta 2 (shoulder) is: {shoulder_a} Theta 3 (elbow) is: {elbow_a} ")
 
 
 #X, Y Z is passed or hip, horizontal and vertical
-servo_calc(0,124, -16) 
+servo_calc(0,89, -34) 

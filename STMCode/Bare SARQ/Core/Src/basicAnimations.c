@@ -90,17 +90,40 @@ void userApp() {
 	HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
 	TIM2->CCR1 = 0;
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+	//Default state for all legs
+	//Front left leg
+	//Hip TIM16 CH1
+	servo(90, CCReg1, &htim16);
+	//Shoulder TIM4 CH4
+	servo(89, CCReg4, &htim4);
+	//Elbow TIM2 CH1
+	servo(117, CCReg1, &htim2);
+
+	//Front right leg
+	//Hip TIM3 CH1
+	servo(90, CCReg1, &htim3);
+	//Shoulder TIM3 CH2
+	servo(89, CCReg2, &htim3);
+	//Elbow TIM2 CH3
+	servo(117, CCReg3, &htim2);
+
+	//Rear left
+	//Hip TIM3 CH4
+	servo(90, CCReg4, &htim3);
+	//Shoulder TIM5 CH4
+	servo(89, CCReg4, &htim5);
+	//Elbow TIM3 CH3
+	servo(117, CCReg3, &htim3);
+
+	//Rear right
+	//Hip TIM4 CH3
+	servo(90, CCReg3, &htim4);
+	//Shoulder TIM5 CH1
+	servo(89, CCReg1, &htim5);
+	//Elbow TIM2 CH2
+	servo(117, CCReg2, &htim2);
 	while (1) {
-		printf("1\r\n");
-		//Shoulder TIM5 CH1
-		servo(88, CCReg1, &htim5);
-		//Elbow TIM2 CH2
-		servo(116, CCReg2, &htim2);
-		printf("2\r\n");
-		//Shoulder TIM5 CH1
-		servo(95, CCReg1, &htim5);
-		//Elbow TIM2 CH2
-		servo(76, CCReg2, &htim2);
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
 		printf("Received: %s\r\n", rx_buffer);
 		//Read code from atoi
@@ -114,94 +137,181 @@ void userApp() {
 			printf("1 received, going forward\r\n");
 			//Get CCR so that each task can assaign based on its own CCR and timer
 			//Set angle passed for each based on ik
-
+			//Start with the forward step before resetting to natural rest position
 			//Front left leg
-			//Hip TIM16 CH1
-			servo(0, CCReg1, &htim16);
-			printf("Servo TIM16 CH1 angle is 0\r\n\n");
-			servo(180, CCReg1, &htim16);
-			printf("Servo angle TIM16 CH1 is 180\r\n\n");
-
 			//Shoulder TIM4 CH4
-			servo(0, CCReg4, &htim4);
-			printf("Servo angle TIM4 CH4 is 0\r\n\n");
-			servo(180, CCReg4, &htim4);
-			printf("Servo angle TIM4 CH4 is 180\r\n\n");
-
+			servo(, CCReg4, &htim4);
 			//Elbow TIM2 CH1
-			servo(0, CCReg1, &htim2);
-			printf("Servo angle TIM2 CH1 is 0\r\n\n");
-			servo(180, CCReg1, &htim2);
-			printf("Servo angle TIM2 CH1 is 180\r\n\n");
+			servo(, CCReg1, &htim2);
 
 			//Front right leg
-			//Hip TIM3 CH1
-			servo(0, CCReg1, &htim3);
-			printf("Servo angle TIM3 CH1 is 0\r\n\n");
-			servo(180, CCReg1, &htim3);
-			printf("Servo angle TIM3 CH1 is 180\r\n\n");
-
 			//Shoulder TIM3 CH2
-			servo(0, CCReg2, &htim3);
-			printf("Servo angle TIM3 CH2 is 0\r\n\n");
-			servo(180, CCReg2, &htim3);
-			printf("Servo angle TIM3 CH2 is 180\r\n\n");
-
+			servo(, CCReg2, &htim3);
 			//Elbow TIM2 CH3
-			servo(0, CCReg3, &htim2);
-			printf("Servo angle TIM2 CH3 is 0\r\n\n");
-			servo(180, CCReg3, &htim2);
-			printf("Servo angle TIM2 CH3 is 180\r\n\n");
+			servo(, CCReg3, &htim2)
 
 			//Rear left
-			//Hip TIM3 CH4
-			servo(0, CCReg4, &htim3);
-			printf("Servo angle TIM3 CH4 is 0\r\n\n");
-			servo(180, CCReg4, &htim3);
-			printf("Servo angle TIM3 CH4 is 180\r\n\n");
-
 			//Shoulder TIM5 CH4
-			servo(0, CCReg4, &htim5);
-			printf("Servo angle TIM5 CH4 is 0\r\n\n");
-			servo(180, CCReg4, &htim5);
-			printf("Servo angle TIM5 CH4 is 180\r\n\n");
-
+			servo(, CCReg4, &htim5);
 			//Elbow TIM3 CH3
-			servo(0, CCReg3, &htim3);
-			printf("Servo angle TIM3 CH3 is 0\r\n\n");
-			servo(180, CCReg3, &htim3);
-			printf("Servo angle TIM3 CH3 is 180\r\n\n");
+			servo(, CCReg3, &htim3);
 
 			//Rear right
-			//Hip TIM4 CH3
-			printf("Setting servo angle TIM4 CH3 is 0\r\n\n");
-			servo(0, CCReg3, &htim4);
-			printf("Setting servo angle TIM4 CH3 is 180\r\n\n");
-			servo(180, CCReg3, &htim4);
-
 			//Shoulder TIM5 CH1
-			printf("Setting servo angle TIM5 CH1 is 0\r\n\n");
-			servo(0, CCReg1, &htim5);
-			printf("Setting servo angle TIM5 CH1 is 180\r\n\n");
-			servo(180, CCReg1, &htim5);
-
+			servo(, CCReg1, &htim5)
 			//Elbow TIM2 CH2
-			printf("Setting servo angle TIM2 CH2 is 0\r\n\n");
-			servo(0, CCReg2, &htim2);
-			printf("Setting servo angle TIM2 CH2 is 180\r\n\n");
-			servo(180, CCReg2, &htim2);
+			servo(, CCReg2, &htim2);
+
+			//Back to the default to crawl forward
+			//Front left leg
+			//Shoulder TIM4 CH4
+			servo(89, CCReg4, &htim4);
+			//Elbow TIM2 CH1
+			servo(117, CCReg1, &htim2);
+
+			//Front right leg
+			//Shoulder TIM3 CH2
+			servo(89, CCReg2, &htim3);
+			//Elbow TIM2 CH3
+			servo(117, CCReg3, &htim2);
+
+			//Rear left
+			//Shoulder TIM5 CH4
+			servo(89, CCReg4, &htim5);
+			//Elbow TIM3 CH3
+			servo(117, CCReg3, &htim3);
+
+			//Rear right
+			//Shoulder TIM5 CH1
+			servo(89, CCReg1, &htim5);
+			//Elbow TIM2 CH2
+			servo(117, CCReg2, &htim2);
+
 			break;
 			//Reverse
 		case 2:
 			printf("2 received, going in reverse\r\n");
+			//Start with the rear legs going in reverse
+			//Rear left
+			//Shoulder TIM5 CH4
+			servo(, CCReg4, &htim5);
+			//Elbow TIM3 CH3
+			servo(, CCReg3, &htim3);
+
+			//Rear right
+			//Shoulder TIM5 CH1
+			servo(, CCReg1, &htim5)
+			//Elbow TIM2 CH2
+			servo(, CCReg2, &htim2);
+
+			//Front left leg
+			//Shoulder TIM4 CH4
+			servo(, CCReg4, &htim4);
+			//Elbow TIM2 CH1
+			servo(, CCReg1, &htim2);
+
+			//Front right leg
+			//Shoulder TIM3 CH2
+			servo(, CCReg2, &htim3);
+			//Elbow TIM2 CH3
+			servo(, CCReg3, &htim2);
+
+			//Back to the default
+			//Rear left
+			//Shoulder TIM5 CH4
+			servo(89, CCReg4, &htim5);
+			//Elbow TIM3 CH3
+			servo(117, CCReg3, &htim3);
+
+			//Rear right
+			//Shoulder TIM5 CH1
+			servo(89, CCReg1, &htim5);
+			//Elbow TIM2 CH2
+			servo(117, CCReg2, &htim2);
+
+			//Front left leg
+			//Shoulder TIM4 CH4
+			servo(89, CCReg4, &htim4);
+			//Elbow TIM2 CH1
+			servo(117, CCReg1, &htim2);
+
+			//Front right leg
+			//Shoulder TIM3 CH2
+			servo(89, CCReg2, &htim3);
+			//Elbow TIM2 CH3
+			servo(117, CCReg3, &htim2);
 			break;
 			//Left
 		case 3:
 			printf("3 received, turning left\r\n");
+			//Front left leg
+			//Hip TIM16 CH1
+			servo(135, CCReg1, &htim16);
+
+			//Front right leg
+			//Hip TIM3 CH1
+			servo(135, CCReg1, &htim3);
+
+			//Rear left
+			//Hip TIM3 CH4
+			servo(135, CCReg4, &htim3);
+
+			//Rear right
+			//Hip TIM4 CH3
+			servo(135, CCReg3, &htim4);
+
+			//Return to default
+			//Front left leg
+			//Hip TIM16 CH1
+			servo(90, CCReg1, &htim16);
+
+			//Front right leg
+			//Hip TIM3 CH1
+			servo(90, CCReg1, &htim3);
+
+			//Rear left
+			//Hip TIM3 CH4
+			servo(90, CCReg4, &htim3);
+
+			//Rear right
+			//Hip TIM4 CH3
+			servo(90, CCReg3, &htim4);
 			break;
 			//Right
 		case 4:
 			printf("4 received, turning right\r\n");
+			//Hip TIM16 CH1
+			servo(45, CCReg1, &htim16);
+
+			//Front right leg
+			//Hip TIM3 CH1
+			servo(45, CCReg1, &htim3);
+
+			//Rear left
+			//Hip TIM3 CH4
+			servo(45, CCReg4, &htim3);
+
+			//Rear right
+			//Hip TIM4 CH3
+			servo(45, CCReg3, &htim4);
+
+			//Back to default
+			//Front left leg
+			//Hip TIM16 CH1
+			servo(90, CCReg1, &htim16);
+
+			//Front right leg
+			//Hip TIM3 CH1
+			servo(90, CCReg1, &htim3);
+
+			//Rear left
+			//Hip TIM3 CH4
+			servo(90, CCReg4, &htim3);
+
+			//Rear right
+			//Hip TIM4 CH3
+			servo(90, CCReg3, &htim4);
+
 			break;
 		default:
 			printf("Invalid number received\r\n");

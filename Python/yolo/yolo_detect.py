@@ -18,7 +18,7 @@ model = YOLO("yolo11n_ncnn_model")
 objects_to_detect = [0]  # You can modify this list
 
 while True:
-    filename = f"Python/yolo/img/frame_{int(time.time()*1000)}.jpg"
+    
     
     # Capture a frame from the camera
     frame = picam2.capture_array()
@@ -39,6 +39,7 @@ while True:
     # Control the Pin based on detection
     if object_found:
         print("Pin turned on!")
+        filename = f"/home/ferry/SaRQ-4th-Year-Project-/Python/yolo/img/frame_{int(time.time()*1000)}.jpg"
         cv2.imwrite(filename, frame)
     else:
         print("Pi turned off!")

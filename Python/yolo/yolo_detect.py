@@ -24,7 +24,7 @@ while True:
     frame = picam2.capture_array()
 
     # Run object detection on the frame
-    results = model(frame, imgsz = 320)
+    results = model(frame, imgsz = 320, conf=0.8)
 
     # Get the classes of detected objects
     detected_objects = results[0].boxes.cls.tolist()
@@ -35,14 +35,6 @@ while True:
         if obj_id in detected_objects:
             object_found = True
             print(f"Detected object with ID {obj_id}!")
-    
-    # Control the Pin based on detection
-    if object_found:
-        print("Pin turned on!")
-        filename = f"/home/ferry/SaRQ-4th-Year-Project-/Python/yolo/img/frame_{int(time.time()*1000)}.jpg"
-        cv2.imwrite(filename, frame)
-    else:
-        print("Pi turned off!")
             
     # Output the visual detection data, we will draw this on our camera preview window
     annotated_frame = results[0].plot()
@@ -61,6 +53,14 @@ while True:
     cv2.putText(annotated_frame, text, (text_x, text_y), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
 
     cv2.imshow("Object Detection", annotated_frame)
+
+        # Control the Pin based on detection
+    if object_found:
+        print("Pin turned on!")
+        filename = f"/home/ferry/SaRQ-4th-Year-Project-/Python/yolo/img/frame_{int(time.time()*1000)}.jpg"
+        cv2.imwrite(filename, annotated_frame)
+    else:
+        print("Pi turned off!")
 
     # Break the loop if 'q' is pressed
     if cv2.waitKey(1) == ord("q"):

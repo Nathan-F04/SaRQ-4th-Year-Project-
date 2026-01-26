@@ -15,7 +15,7 @@ picam2.start()
 model = YOLO("yolo11n_ncnn_model")
 
 # List of class IDs we want to detect
-objects_to_detect = [0]  # You can modify this list
+objects_to_detect = [0]  
 
 while True:
     
@@ -54,7 +54,7 @@ while True:
 
     cv2.imshow("Object Detection", annotated_frame)
 
-        # Control the Pin based on detection
+    # Control the Pin based on detection
     if object_found:
         print("Pin turned on!")
         filename = f"/home/ferry/SaRQ-4th-Year-Project-/Python/yolo/img/frame_{int(time.time()*1000)}.jpg"

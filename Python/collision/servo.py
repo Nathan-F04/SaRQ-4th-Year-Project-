@@ -1,12 +1,15 @@
-from gpiozero import AngularServo
+import pigpio
 from time import sleep
 
-servo = AngularServo(18, min_pulse_width=0.0006, max_pulse_width=0.0023)
+# connect to the 
+pi = pigpio.pi()
 
-while (True):
-    servo.angle = 90
-    sleep(2)
-    servo.angle = 0
-    sleep(2)
-    servo.angle = -90
-    sleep(2)
+# loop forever
+while True:
+
+    pi.set_servo_pulsewidth(18, 500)    # off
+    sleep(1)
+    pi.set_servo_pulsewidth(18, 1500)    # off
+    sleep(1)
+    pi.set_servo_pulsewidth(18, 2500)    # off
+    sleep(1)

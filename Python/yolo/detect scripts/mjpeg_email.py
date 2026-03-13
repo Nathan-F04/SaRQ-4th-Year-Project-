@@ -44,6 +44,7 @@ def ultrasonic():
     GPIO.setup(ECHO,GPIO.IN)
     GPIO.output(TRIG, False)
     GPIO.output(TRIG, True)
+    time.sleep(2)
     time.sleep(0.00001)
     GPIO.output(TRIG, False)
     while GPIO.input (ECHO)==0:
@@ -53,23 +54,23 @@ def ultrasonic():
     pulse_duration = pulse_end - pulse_start
     distance = pulse_duration * 17150
     distance = round(distance, 2)
+    print(f"distance is {distance}")
     return distance
 
 def servo():
     #Left
     pi.set_servo_pulsewidth(18, 500)
     left_dist = ultrasonic()
-    print(0)
+    print(f"Left is {left_dist}")
     sleep(1)
     #Right
     pi.set_servo_pulsewidth(18, 2500)
     right_dist = ultrasonic()
-    print(90)
+    print(f"Right is {left_dist}")
     sleep(1)
 
     #Reset to center
     pi.set_servo_pulsewidth(18, 1500)
-    print(180)
     sleep(1)
 
     #decide which direction to turn
@@ -84,21 +85,18 @@ def serial():
         print(f"Received: {received}")
         # Check distance & Send message
         read_distance = ultrasonic()
-        if distance < 15:
+        if read_distance < 15:
             direction = servo()
             #Check if you are turning right
             if direction:
                 ser.write(b"4")
                 print("Sent: 4")
-                break
             else:
                 ser.write(b"3")
                 print("Sent: 3")
-                break
         else:     
             ser.write(b"1")
             print("Sent: 1")
-            break
 
 def send_email():
     # create message object instance

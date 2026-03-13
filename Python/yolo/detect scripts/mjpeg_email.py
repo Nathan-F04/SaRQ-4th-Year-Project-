@@ -4,6 +4,7 @@ import socketserver
 from http import server
 from threading import Condition
 import time
+from time import sleep
 import numpy as np
 import cv2
 from ultralytics import YOLO
@@ -15,16 +16,53 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
+import pigpio
+import RPi.GPIO as GPIO
 
-#defining send email before it's called
+#Create the object for the servo calls
+pi = pigpio.pi()
+#Set pins for the HC-SR04
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+TRIG = 23
+ECHO = 24
+
+def servo():
+    pi.set_servo_pulsewidth(18, 500)
+    print(0)
+    sleep(1)
+    pi.set_servo_pulsewidth(18, 1500)
+    print(90)
+    sleep(1)
+    pi.set_servo_pulsewidth(18, 2500)
+    print(180)
+    sleep(1)
+
+def ultrasonic():
+    print("Distance Measurement In Progress:")
+    GPIO.setup(TRIG, GPIO.OUT)
+    GPIO.setup(ECHO,GPIO.IN)
+    GPIO.output(TRIG, False)
+    GPIO.output(TRIG, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
+    while GPIO.input (ECHO)==0:
+        pulse_start = time.time()
+    while GPIO.input (ECHO)==1:
+        pulse_end = time.time()
+    pulse_duration = pulse_end - pulse_start
+    distance = pulse_duration * 17150
+    distance = round(distance, 2)
+    print("Distance:", distance, "cm")
+
 def send_email():
     # create message object instance
     msg = MIMEMultipart()
 
     # set the sender and recipient email addresses, and the password
-    sender = ''
-    recipient = ''
-    password =""
+    sender = 'ferrynathan24@gmail.com' 
+    recipient = 'ferrynathan04@gmail.com' 
+    password ="fuzauxltmvrrzjpm" 
 
     # set the subject and body of the email
     msg['Subject'] = 'Test Email with Attachment'
@@ -35,6 +73,8 @@ def send_email():
 
     # attach the body of the email to the message object
     msg.attach(MIMEText(body, 'plain'))
+
+    print("EMAIL SENT!!!!")
 
     count = 10
     while(count>0):
@@ -136,6 +176,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     # Flag if any objects of interest are detected
                     detected_objects = results[0].boxes.cls.tolist()
                     object_found = False
+                    ultrasonic()
+                    print("passed ultra?")
                     for obj_id in OBJECTS_TO_DETECT:
                         if obj_id in detected_objects:
                             object_found = True

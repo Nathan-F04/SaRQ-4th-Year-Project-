@@ -18,6 +18,17 @@ from email.mime.base import MIMEBase
 from email import encoders
 import pigpio
 import RPi.GPIO as GPIO
+import serial
+
+# Configure serial port
+ser = serial.Serial(
+    port='/dev/serial0',  # Default UART port on GPIO 14/15
+    baudrate=115200,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout=1
+)
 
 #Create the object for the servo calls
 pi = pigpio.pi()
@@ -26,17 +37,6 @@ GPIO.setmode(GPIO.BCM)
 GPIO.setwarnings(False)
 TRIG = 23
 ECHO = 24
-
-def servo():
-    pi.set_servo_pulsewidth(18, 500)
-    print(0)
-    sleep(1)
-    pi.set_servo_pulsewidth(18, 1500)
-    print(90)
-    sleep(1)
-    pi.set_servo_pulsewidth(18, 2500)
-    print(180)
-    sleep(1)
 
 def ultrasonic():
     print("Distance Measurement In Progress:")
@@ -53,7 +53,52 @@ def ultrasonic():
     pulse_duration = pulse_end - pulse_start
     distance = pulse_duration * 17150
     distance = round(distance, 2)
-    print("Distance:", distance, "cm")
+    return distance
+
+def servo():
+    #Left
+    pi.set_servo_pulsewidth(18, 500)
+    left_dist = ultrasonic()
+    print(0)
+    sleep(1)
+    #Right
+    pi.set_servo_pulsewidth(18, 2500)
+    right_dist = ultrasonic()
+    print(90)
+    sleep(1)
+
+    #Reset to center
+    pi.set_servo_pulsewidth(18, 1500)
+    print(180)
+    sleep(1)
+
+    #decide which direction to turn
+    if right_dist > left_dist:
+        return 1
+    else:
+        return 0
+
+def serial():
+    if ser.in_waiting > 0:
+        received = ser.readline().decode('utf-8').strip()
+        print(f"Received: {received}")
+        # Check distance & Send message
+        read_distance = ultrasonic()
+        if distance < 15:
+            direction = servo()
+            #Check if you are turning right
+            if direction:
+                ser.write(b"4")
+                print("Sent: 4")
+                break
+            else:
+                ser.write(b"3")
+                print("Sent: 3")
+                break
+        else:     
+            ser.write(b"1")
+            print("Sent: 1")
+            break
 
 def send_email():
     # create message object instance
@@ -162,6 +207,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
             try:
                 while True:
+                    #Decide which direction to move if the SaRQ has finished the previous instruction
+                    if ser.in_waiting > 0:
+                        serial()
                     # Wait for a new frame from the camera
                     with output.condition:
                         output.condition.wait()
@@ -176,8 +224,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     # Flag if any objects of interest are detected
                     detected_objects = results[0].boxes.cls.tolist()
                     object_found = False
-                    ultrasonic()
-                    print("passed ultra?")
+
                     for obj_id in OBJECTS_TO_DETECT:
                         if obj_id in detected_objects:
                             object_found = True

@@ -4,6 +4,7 @@ import socketserver
 from http import server
 from threading import Condition
 import time
+from time import sleep
 import numpy as np
 import cv2
 from ultralytics import YOLO
@@ -15,16 +16,96 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 from email import encoders
+import pigpio
+import RPi.GPIO as GPIO
+import serial
 
-#defining send email before it's called
+# Configure serial port
+ser = serial.Serial(
+    port='/dev/serial0',  # Default UART port on GPIO 14/15
+    baudrate=115200,
+    parity=serial.PARITY_NONE,
+    stopbits=serial.STOPBITS_ONE,
+    bytesize=serial.EIGHTBITS,
+    timeout=1
+)
+
+#Create the object for the servo calls
+pi = pigpio.pi()
+#Set pins for the HC-SR04
+GPIO.setmode(GPIO.BCM)
+GPIO.setwarnings(False)
+TRIG = 23
+ECHO = 24
+
+def ultrasonic():
+    print("Distance Measurement In Progress:")
+    GPIO.setup(TRIG, GPIO.OUT)
+    GPIO.setup(ECHO,GPIO.IN)
+    GPIO.output(TRIG, False)
+    GPIO.output(TRIG, True)
+    time.sleep(2)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
+    while GPIO.input (ECHO)==0:
+        pulse_start = time.time()
+    while GPIO.input (ECHO)==1:
+        pulse_end = time.time()
+    pulse_duration = pulse_end - pulse_start
+    distance = pulse_duration * 17150
+    distance = round(distance, 2)
+    print(f"distance is {distance}")
+    return distance
+
+def servo():
+    #Left
+    pi.set_servo_pulsewidth(18, 500)
+    left_dist = ultrasonic()
+    print(f"Left is {left_dist}")
+    sleep(1)
+    #Right
+    pi.set_servo_pulsewidth(18, 2500)
+    right_dist = ultrasonic()
+    print(f"Right is {left_dist}")
+    sleep(1)
+
+    #Reset to center
+    pi.set_servo_pulsewidth(18, 1500)
+    sleep(1)
+
+    #decide which direction to turn
+    if right_dist > left_dist:
+        return 1
+    else:
+        return 0
+
+def serial():
+    if ser.in_waiting > 0:
+        received = ser.readline().decode('utf-8').strip()
+        print(f"Received: {received}")
+        # Check distance & Send message
+        read_distance = ultrasonic()
+        if read_distance < 15:
+            direction = servo()
+            #Check if you are turning right
+            if direction:
+                ser.write(b"4")
+                print("Sent: 4")
+            else:
+                ser.write(b"3")
+                print("Sent: 3")
+        else:     
+            ser.write(b"1")
+            print("Sent: 1")
+
 def send_email():
     # create message object instance
     msg = MIMEMultipart()
 
     # set the sender and recipient email addresses, and the password
-    sender = ''
-    recipient = ''
-    password =""
+    sender = 'ferrynathan24@gmail.com' 
+    recipient = 'ferrynathan04@gmail.com' 
+    password ="fuzauxltmvrrzjpm" 
 
     # set the subject and body of the email
     msg['Subject'] = 'Test Email with Attachment'
@@ -35,6 +116,8 @@ def send_email():
 
     # attach the body of the email to the message object
     msg.attach(MIMEText(body, 'plain'))
+
+    print("EMAIL SENT!!!!")
 
     count = 10
     while(count>0):
@@ -122,6 +205,9 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
             try:
                 while True:
+                    #Decide which direction to move if the SaRQ has finished the previous instruction
+                    if ser.in_waiting > 0:
+                        serial()
                     # Wait for a new frame from the camera
                     with output.condition:
                         output.condition.wait()
@@ -136,6 +222,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     # Flag if any objects of interest are detected
                     detected_objects = results[0].boxes.cls.tolist()
                     object_found = False
+
                     for obj_id in OBJECTS_TO_DETECT:
                         if obj_id in detected_objects:
                             object_found = True

@@ -54,6 +54,11 @@ void userApp() {
 	char rx_buffer[1]; //number + carraige return and newline
 	uint8_t msg = 0;
 
+	//Messages for the RPI
+	char tx_buffer[] = "Command executed\r\n";
+	char tx_err_buffer[] = "Invalid number sent\r\n";
+	char tx_start_buffer[] = "Starting the RPI\r\n";
+
 	//pwm starts here and ccrms etc
 	//TIM 2
 	TIM2->CCR1 = 0;
@@ -90,17 +95,11 @@ void userApp() {
 	HAL_TIM_PWM_Start(&htim16, TIM_CHANNEL_1);
 	TIM2->CCR1 = 0;
 	HAL_TIM_PWM_Start(&htim2, TIM_CHANNEL_1);
+
+	//Starting the RPI
+	HAL_UART_Transmit(&huart3, (uint8_t*)tx_start_buffer, strlen(tx_start_buffer), HAL_MAX_DELAY);
+
 	while (1) {
-		printf("1\r\n");
-		//Shoulder TIM5 CH1
-		servo(88, CCReg1, &htim5);
-		//Elbow TIM2 CH2
-		servo(116, CCReg2, &htim2);
-		printf("2\r\n");
-		//Shoulder TIM5 CH1
-		servo(95, CCReg1, &htim5);
-		//Elbow TIM2 CH2
-		servo(76, CCReg2, &htim2);
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
 		printf("Received: %s\r\n", rx_buffer);
 		//Read code from atoi
@@ -112,99 +111,99 @@ void userApp() {
 		//Forward - prerequiste vals and writes
 		case 1:
 			printf("1 received, going forward\r\n");
-			//Get CCR so that each task can assaign based on its own CCR and timer
-			//Set angle passed for each based on ik
-
-			//Front left leg
-			//Hip TIM16 CH1
-			servo(0, CCReg1, &htim16);
+//			//Get CCR so that each task can assaign based on its own CCR and timer
+//			//Set angle passed for each based on ik
+//
+//			//Rear right Leg
+//			//Elbow TIM16 CH1 rear right
+			servo(61, CCReg1, &htim16);
 			printf("Servo TIM16 CH1 angle is 0\r\n\n");
-			servo(180, CCReg1, &htim16);
-			printf("Servo angle TIM16 CH1 is 180\r\n\n");
-
-			//Shoulder TIM4 CH4
-			servo(0, CCReg4, &htim4);
-			printf("Servo angle TIM4 CH4 is 0\r\n\n");
-			servo(180, CCReg4, &htim4);
-			printf("Servo angle TIM4 CH4 is 180\r\n\n");
-
-			//Elbow TIM2 CH1
-			servo(0, CCReg1, &htim2);
-			printf("Servo angle TIM2 CH1 is 0\r\n\n");
-			servo(180, CCReg1, &htim2);
-			printf("Servo angle TIM2 CH1 is 180\r\n\n");
-
-			//Front right leg
-			//Hip TIM3 CH1
-			servo(0, CCReg1, &htim3);
-			printf("Servo angle TIM3 CH1 is 0\r\n\n");
-			servo(180, CCReg1, &htim3);
-			printf("Servo angle TIM3 CH1 is 180\r\n\n");
-
-			//Shoulder TIM3 CH2
-			servo(0, CCReg2, &htim3);
-			printf("Servo angle TIM3 CH2 is 0\r\n\n");
-			servo(180, CCReg2, &htim3);
-			printf("Servo angle TIM3 CH2 is 180\r\n\n");
-
-			//Elbow TIM2 CH3
-			servo(0, CCReg3, &htim2);
-			printf("Servo angle TIM2 CH3 is 0\r\n\n");
-			servo(180, CCReg3, &htim2);
-			printf("Servo angle TIM2 CH3 is 180\r\n\n");
-
-			//Rear left
-			//Hip TIM3 CH4
-			servo(0, CCReg4, &htim3);
-			printf("Servo angle TIM3 CH4 is 0\r\n\n");
-			servo(180, CCReg4, &htim3);
-			printf("Servo angle TIM3 CH4 is 180\r\n\n");
-
-			//Shoulder TIM5 CH4
-			servo(0, CCReg4, &htim5);
-			printf("Servo angle TIM5 CH4 is 0\r\n\n");
-			servo(180, CCReg4, &htim5);
-			printf("Servo angle TIM5 CH4 is 180\r\n\n");
-
-			//Elbow TIM3 CH3
-			servo(0, CCReg3, &htim3);
-			printf("Servo angle TIM3 CH3 is 0\r\n\n");
-			servo(180, CCReg3, &htim3);
-			printf("Servo angle TIM3 CH3 is 180\r\n\n");
-
-			//Rear right
-			//Hip TIM4 CH3
-			printf("Setting servo angle TIM4 CH3 is 0\r\n\n");
-			servo(0, CCReg3, &htim4);
-			printf("Setting servo angle TIM4 CH3 is 180\r\n\n");
-			servo(180, CCReg3, &htim4);
-
-			//Shoulder TIM5 CH1
-			printf("Setting servo angle TIM5 CH1 is 0\r\n\n");
-			servo(0, CCReg1, &htim5);
-			printf("Setting servo angle TIM5 CH1 is 180\r\n\n");
-			servo(180, CCReg1, &htim5);
-
-			//Elbow TIM2 CH2
-			printf("Setting servo angle TIM2 CH2 is 0\r\n\n");
-			servo(0, CCReg2, &htim2);
-			printf("Setting servo angle TIM2 CH2 is 180\r\n\n");
-			servo(180, CCReg2, &htim2);
+//
+//			//Shoulder TIM4 CH4 rear right
+//			servo(90, CCReg4, &htim4);
+//			printf("Servo angle TIM4 CH4 is 0\r\n\n");
+//
+//			//Rear right Hip TIM2 CH1
+//			servo(90, CCReg1, &htim2);
+//			printf("Servo angle TIM2 CH1 is 0\r\n\n");
+//
+//			//Rear left leg
+//			//Elbow rear left TIM3 CH1 rear left
+//			servo(61, CCReg1, &htim3);
+//			printf("Servo angle TIM3 CH1 is 0\r\n\n");
+//
+//			//Shoulder TIM3 CH2 rear left
+//			servo(90, CCReg2, &htim3);
+//			printf("Servo angle TIM3 CH2 is 0\r\n\n");
+//
+//			//Hip TIM2 CH3 rear left
+//			servo(90, CCReg3, &htim2);
+//			printf("Servo angle TIM2 CH3 is 0\r\n\n");
+//
+//
+//			//Front right leg
+//			//Elbow TIM3 CH4 front right
+//			servo(61, CCReg4, &htim3);
+//			printf("Servo angle TIM3 CH4 is 0\r\n\n");
+//
+//			//Shoulder TIM5 CH4 front right
+//			servo(90, CCReg4, &htim5);
+//			printf("Servo angle TIM5 CH4 is 0\r\n\n");
+//
+//			//Hip TIM3 CH3 front right
+//			servo(90, CCReg3, &htim3);
+//			printf("Servo angle TIM3 CH3 is 0\r\n\n");
+//
+//			//Front left
+//
+//			//Elbow TIM5 CH1 front left
+//			printf("Setting servo angle TIM5 CH1 is 0\r\n\n");
+//			servo(61, CCReg1, &htim5);
+//
+//			//shoulder TIM4 CH3 front left
+//			printf("Setting servo angle TIM4 CH3 is 0\r\n\n");
+//			servo(90, CCReg3, &htim4);
+//
+//
+//			//Hip TIM2 CH2 front left
+//			printf("Setting servo angle TIM2 CH2 is 0\r\n\n");
+//			servo(90, CCReg2, &htim2);
+//			servo(100, CCReg2, &htim2);
+//
+//			//Send a command complete message to the RPI
+//			printf("Sending command complete to the RPI\r\n");
+			HAL_UART_Transmit(&huart3, (uint8_t*)tx_buffer, strlen(tx_buffer), HAL_MAX_DELAY);
 			break;
 			//Reverse
 		case 2:
 			printf("2 received, going in reverse\r\n");
+
+			//Send a command complete message to the RPI
+			printf("Sending command complete to the RPI\r\n");
+			HAL_UART_Transmit(&huart3, (uint8_t*)tx_buffer, strlen(tx_buffer), HAL_MAX_DELAY);
 			break;
 			//Left
 		case 3:
 			printf("3 received, turning left\r\n");
+
+
+			//Send a command complete message to the RPI
+			printf("Sending command complete to the RPI\r\n");
+			HAL_UART_Transmit(&huart3, (uint8_t*)tx_buffer, strlen(tx_buffer), HAL_MAX_DELAY);
 			break;
 			//Right
 		case 4:
 			printf("4 received, turning right\r\n");
+
+			//Send a command complete message to the RPI
+			printf("Sending command complete to the RPI\r\n");
+			HAL_UART_Transmit(&huart3, (uint8_t*)tx_buffer, strlen(tx_buffer), HAL_MAX_DELAY);
 			break;
 		default:
-			printf("Invalid number received\r\n");
+			printf("Invalid number received, sending a message to RPI\r\n");
+
+			//Send a command incomplete message to the RPI
+			HAL_UART_Transmit(&huart3, (uint8_t*)tx_err_buffer, strlen(tx_err_buffer), HAL_MAX_DELAY);
 			break;
 		}
 	}

@@ -50,7 +50,8 @@ void servo(uint16_t anglePassed, uint8_t num, TIM_HandleTypeDef *htim);
 //uint16_t servo(uint16_t anglePassed);
 
 void userApp() {
-	printf("Starting application\r\n\n");
+	printf("Starting application, standing the SaRQ up\r\n\n");
+	printf("\r\n");
 	char rx_buffer[1]; //number + carraige return and newline
 	uint8_t msg = 0;
 
@@ -99,6 +100,51 @@ void userApp() {
 	//Starting the RPI
 	HAL_UART_Transmit(&huart3, (uint8_t*)tx_start_buffer, strlen(tx_start_buffer), HAL_MAX_DELAY);
 
+	//STANDING ANIMATION
+
+	//REAR RIGHT
+	//Elbow
+	servo(50, CCReg1, &htim16);
+	HAL_Delay(200);
+	//Shoulder -15
+	servo(75, CCReg4, &htim4);
+	HAL_Delay(200);
+	//Hip
+	servo(100, CCReg1, &htim2);
+	HAL_Delay(200);
+
+	//REAR LEFT
+	//Elbow
+	servo(50, CCReg1, &htim3);
+	HAL_Delay(200);
+	//Shoulder offset of -5
+	servo(85, CCReg2, &htim3);
+	HAL_Delay(200);
+	//Hip
+	servo(60, CCReg3, &htim2);
+	HAL_Delay(200);
+
+	//FRONT RIGHT
+	//Elbow
+	servo(60, CCReg4, &htim3);
+	HAL_Delay(200);
+	//Shoulder offset of -10
+	servo(80, CCReg4, &htim5);
+	HAL_Delay(200);
+	//Hip -5 offset
+	servo(85, CCReg3, &htim3);
+	HAL_Delay(200);
+
+	//FRONT LEFT
+	//Elbow
+	servo(60, CCReg1, &htim5);
+	HAL_Delay(200);
+	//Shoulder
+	servo(90, CCReg3, &htim4);
+	HAL_Delay(200);
+	//Hip
+	servo(100, CCReg2, &htim2);
+
 	while (1) {
 		HAL_UART_Receive(&huart3, (uint8_t*)rx_buffer, sizeof(rx_buffer), HAL_MAX_DELAY);
 		printf("Received: %s\r\n", rx_buffer);
@@ -111,72 +157,146 @@ void userApp() {
 		//Forward - prerequiste vals and writes
 		case 1:
 			printf("1 received, going forward\r\n");
-//			//Get CCR so that each task can assaign based on its own CCR and timer
-//			//Set angle passed for each based on ik
-//
-//			//Rear right Leg
-//			//Elbow TIM16 CH1 rear right
-			servo(61, CCReg1, &htim16);
-			printf("Servo TIM16 CH1 angle is 0\r\n\n");
-//
-//			//Shoulder TIM4 CH4 rear right
-//			servo(90, CCReg4, &htim4);
-//			printf("Servo angle TIM4 CH4 is 0\r\n\n");
-//
-//			//Rear right Hip TIM2 CH1
-//			servo(90, CCReg1, &htim2);
-//			printf("Servo angle TIM2 CH1 is 0\r\n\n");
-//
-//			//Rear left leg
-//			//Elbow rear left TIM3 CH1 rear left
-//			servo(61, CCReg1, &htim3);
-//			printf("Servo angle TIM3 CH1 is 0\r\n\n");
-//
-//			//Shoulder TIM3 CH2 rear left
-//			servo(90, CCReg2, &htim3);
-//			printf("Servo angle TIM3 CH2 is 0\r\n\n");
-//
-//			//Hip TIM2 CH3 rear left
-//			servo(90, CCReg3, &htim2);
-//			printf("Servo angle TIM2 CH3 is 0\r\n\n");
-//
-//
-//			//Front right leg
-//			//Elbow TIM3 CH4 front right
-//			servo(61, CCReg4, &htim3);
-//			printf("Servo angle TIM3 CH4 is 0\r\n\n");
-//
-//			//Shoulder TIM5 CH4 front right
-//			servo(90, CCReg4, &htim5);
-//			printf("Servo angle TIM5 CH4 is 0\r\n\n");
-//
-//			//Hip TIM3 CH3 front right
-//			servo(90, CCReg3, &htim3);
-//			printf("Servo angle TIM3 CH3 is 0\r\n\n");
-//
-//			//Front left
-//
-//			//Elbow TIM5 CH1 front left
-//			printf("Setting servo angle TIM5 CH1 is 0\r\n\n");
-//			servo(61, CCReg1, &htim5);
-//
-//			//shoulder TIM4 CH3 front left
-//			printf("Setting servo angle TIM4 CH3 is 0\r\n\n");
-//			servo(90, CCReg3, &htim4);
-//
-//
-//			//Hip TIM2 CH2 front left
-//			printf("Setting servo angle TIM2 CH2 is 0\r\n\n");
-//			servo(90, CCReg2, &htim2);
-//			servo(100, CCReg2, &htim2);
-//
-//			//Send a command complete message to the RPI
-//			printf("Sending command complete to the RPI\r\n");
+			//Get CCR so that each task can assign based on its own CCR and timer
+			//Set angle passed for each based on ik
+
+			printf("Rear left leg up and forward\r\n");
+			//REAR LEFT
+			//Shoulder offset of -5
+			servo(105, CCReg2, &htim3);
+			//Elbow
+			servo(70, CCReg1, &htim3);
+			HAL_Delay(500);
+			//Shoulder offset of -5
+			servo(85, CCReg2, &htim3);
+			HAL_Delay(1000);
+
+			printf("Front left leg up and forward\r\n");
+			//FRONT LEFT
+			//shoulder
+			servo(100, CCReg3, &htim4);
+			//Elbow
+			servo(50, CCReg1, &htim5);
+			HAL_Delay(200);
+			//shoulder
+			servo(90, CCReg3, &htim4);
+			HAL_Delay(1000);
+
+			printf("Rear right leg up and forward\r\n");
+			//REAR RIGHT
+			//Shoulder offset of -15
+			servo(75, CCReg4, &htim4);
+			HAL_Delay(200);
+			//Elbow
+			servo(65, CCReg1, &htim16);
+			HAL_Delay(500);
+			//Shoulder offset of -15 may remove this line
+			servo(75, CCReg4, &htim4);
+			HAL_Delay(1000);
+
+			printf("Front right leg up and forward\r\n");
+			//FRONT RIGHT
+			//Shoulder offset of -10
+			servo(90, CCReg4, &htim5);
+			HAL_Delay(200);
+			//Elbow
+			servo(50, CCReg4, &htim3);
+			HAL_Delay(500);
+			//Shoulder offset of -10
+			servo(80, CCReg4, &htim5);
+
+			/*
+			 * MOVING THEM FORWARD TOGETHER
+			 */
+			printf("All legs step forward\r\n");
+			//REAR LEFT
+			//Elbow
+			servo(50, CCReg1, &htim3);
+
+			//FRONT LEFT
+			//Elbow
+			servo(60, CCReg1, &htim5);
+
+			//REAR RIGHT
+			//Elbow
+			servo(50, CCReg1, &htim16);
+
+			//FRONT RIGHT
+			//Elbow
+			servo(60, CCReg4, &htim3);
+
+			//Send a command complete message to the RPI
+			printf("Sending command complete to the RPI\r\n");
 			HAL_UART_Transmit(&huart3, (uint8_t*)tx_buffer, strlen(tx_buffer), HAL_MAX_DELAY);
 			break;
 			//Reverse
 		case 2:
 			printf("2 received, going in reverse\r\n");
+
+			printf("Rear left leg up and reverse\r\n");
+			//REAR LEFT
+			//Shoulder offset of -5
+			servo(105, CCReg2, &htim3);
+			//Elbow
+			servo(30, CCReg1, &htim3);
+			HAL_Delay(500);
+			//Shoulder offset of -5
+			servo(85, CCReg2, &htim3);
+			HAL_Delay(1000);
+
+			printf("Front left leg up and reverse\r\n");
+			//FRONT LEFT
+			//shoulder
+			servo(100, CCReg3, &htim4);
+			//Elbow
+			servo(70, CCReg1, &htim5);
+			HAL_Delay(200);
+			//shoulder
+			servo(90, CCReg3, &htim4);
+			HAL_Delay(1000);
+
+			printf("Rear right leg up and reverse\r\n");
+			//REAR RIGHT
+			//Shoulder offset of -15
+			servo(75, CCReg4, &htim4);
+			HAL_Delay(200);
+			//Elbow
+			servo(35, CCReg1, &htim16);
+			HAL_Delay(500);
+			//Shoulder offset of -15 may remove this line
+			servo(75, CCReg4, &htim4);
+			HAL_Delay(1000);
+
+			printf("Front right leg up and reverse\r\n");
+			//FRONT RIGHT
+			//Shoulder offset of -10
+			servo(90, CCReg4, &htim5);
+			HAL_Delay(200);
+			//Elbow
+			servo(70, CCReg4, &htim3);
+			HAL_Delay(500);
+			//Shoulder offset of -10
+			servo(80, CCReg4, &htim5);
+
+			/*
+			 * MOVING THEM BACKWARDS TOGETHER
+			 */
+			printf("All legs reverse\r\n");
+			//REAR LEFT
+			//Elbow
+			servo(50, CCReg1, &htim3);
+
+			//FRONT LEFT
+			//Elbow
+			servo(60, CCReg1, &htim5);
+
+			//REAR RIGHT
+			//Elbow
+			servo(50, CCReg1, &htim16);
+
+			//FRONT RIGHT
+			//Elbow
+			servo(60, CCReg4, &htim3);
 
 			//Send a command complete message to the RPI
 			printf("Sending command complete to the RPI\r\n");
@@ -186,6 +306,70 @@ void userApp() {
 		case 3:
 			printf("3 received, turning left\r\n");
 
+			printf("Rear left leg up and left\r\n");
+			//REAR LEFT
+			//Shoulder offset of -5
+			servo(105, CCReg2, &htim3);
+			//Hip
+			servo(60, CCReg3, &htim2);
+			HAL_Delay(500);
+			//Shoulder offset of -5
+			servo(85, CCReg2, &htim3);
+			HAL_Delay(1000);
+
+			printf("Front left leg up and left\r\n");
+			//FRONT LEFT
+			//shoulder
+			servo(100, CCReg3, &htim4);
+			//Hip
+			servo(100, CCReg2, &htim2);
+			HAL_Delay(200);
+			//shoulder
+			servo(90, CCReg3, &htim4);
+			HAL_Delay(1000);
+
+			printf("Rear right leg up and left\r\n");
+			//REAR RIGHT
+			//Shoulder offset of -15
+			servo(75, CCReg4, &htim4);
+			HAL_Delay(200);
+			//Hip
+			servo(100, CCReg1, &htim2);
+			HAL_Delay(500);
+			//Shoulder offset of -15 may remove this line
+			servo(75, CCReg4, &htim4);
+			HAL_Delay(1000);
+
+			printf("Front right leg up and left\r\n");
+			//FRONT RIGHT
+			//Shoulder offset of -10
+			servo(90, CCReg4, &htim5);
+			HAL_Delay(200);
+			//Hip
+			servo(85, CCReg3, &htim3);
+			HAL_Delay(500);
+			//Shoulder offset of -10
+			servo(80, CCReg4, &htim5);
+
+			/*
+			 * MOVING THEM LEFT TOGETHER
+			 */
+			printf("All legs step left\r\n");
+			//REAR LEFT
+			//Hip
+			servo(60, CCReg3, &htim2);
+
+			//FRONT LEFT
+			//Hip
+			servo(100, CCReg2, &htim2);
+
+			//REAR RIGHT
+			//Hip
+			servo(100, CCReg1, &htim2);
+
+			//FRONT RIGHT
+			//Hip
+			servo(85, CCReg3, &htim3);
 
 			//Send a command complete message to the RPI
 			printf("Sending command complete to the RPI\r\n");
@@ -212,21 +396,18 @@ void userApp() {
 void servo(uint16_t anglePassed, uint8_t channel, TIM_HandleTypeDef *htim) {
 	//Servo function calculated CCR value and returns it, angle is 210 as it is the servos max.
 	uint32_t CCR_Return = 0;
-	uint16_t Min_ARR = 1120, Max_ARR = 8495, AngleRange = 210;
-	CCR_Return = ((Max_ARR - Min_ARR) * anglePassed) / AngleRange + Min_ARR;
+	uint16_t Min_CCR = 1120, Max_CCR = 8495, AngleRange = 210;
+	CCR_Return = ((Max_CCR - Min_CCR) * anglePassed) / AngleRange + Min_CCR;
 	if (htim->Instance == TIM2) {
 		switch (channel) {
 		case 1:
 			TIM2->CCR1 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 2:
 			TIM2->CCR2 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 3:
 			TIM2->CCR3 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		default:
 			break;
@@ -236,19 +417,15 @@ void servo(uint16_t anglePassed, uint8_t channel, TIM_HandleTypeDef *htim) {
 		switch (channel) {
 		case 1:
 			TIM3->CCR1 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 2:
 			TIM3->CCR2 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 3:
 			TIM3->CCR3 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 4:
 			TIM3->CCR4 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		default:
 			break;
@@ -258,11 +435,9 @@ void servo(uint16_t anglePassed, uint8_t channel, TIM_HandleTypeDef *htim) {
 		switch (channel) {
 		case 3:
 			TIM4->CCR3 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 4:
 			TIM4->CCR4 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		default:
 			break;
@@ -272,11 +447,9 @@ void servo(uint16_t anglePassed, uint8_t channel, TIM_HandleTypeDef *htim) {
 		switch (channel) {
 		case 1:
 			TIM5->CCR1 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		case 4:
 			TIM5->CCR4 = CCR_Return;
-			HAL_Delay(2000);
 			break;
 		default:
 			break;
@@ -284,6 +457,5 @@ void servo(uint16_t anglePassed, uint8_t channel, TIM_HandleTypeDef *htim) {
 	}
 	if (htim->Instance == TIM16) {
 		TIM16->CCR1 = CCR_Return;
-		HAL_Delay(2000);
 	}
 }

@@ -39,12 +39,11 @@ TRIG = 23
 ECHO = 24
 
 def ultrasonic():
-    print("Distance Measurement In Progress:")
     GPIO.setup(TRIG, GPIO.OUT)
     GPIO.setup(ECHO,GPIO.IN)
     GPIO.output(TRIG, False)
-    GPIO.output(TRIG, True)
     time.sleep(2)
+    GPIO.output(TRIG, True)
     time.sleep(0.00001)
     GPIO.output(TRIG, False)
     while GPIO.input (ECHO)==0:
@@ -59,6 +58,7 @@ def ultrasonic():
 
 def servo():
     #Left
+    print("left")
     pi.set_servo_pulsewidth(18, 500)
     left_dist = ultrasonic()
     print(f"Left is {left_dist}")
@@ -87,6 +87,7 @@ def serial():
         read_distance = ultrasonic()
         if read_distance < 15:
             direction = servo()
+            print(f"Received: {received}")
             #Check if you are turning right
             if direction:
                 ser.write(b"4")
@@ -105,7 +106,7 @@ def send_email():
     # set the sender and recipient email addresses, and the password
     sender = 'ferrynathan24@gmail.com' 
     recipient = 'ferrynathan04@gmail.com' 
-    password ="fuzauxltmvrrzjpm" 
+    password ="" 
 
     # set the subject and body of the email
     msg['Subject'] = 'Test Email with Attachment'
@@ -206,6 +207,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
             try:
                 while True:
                     #Decide which direction to move if the SaRQ has finished the previous instruction
+                    print("main")
                     if ser.in_waiting > 0:
                         serial()
                     # Wait for a new frame from the camera
@@ -218,7 +220,7 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     image = cv2.imdecode(img_array, cv2.IMREAD_COLOR)
 
                     # Run YOLO detection
-                    results = model(image, imgsz=320, conf=0.8)
+                    results = model(image, imgsz=320, conf=0.52, verbose=False)
                     # Flag if any objects of interest are detected
                     detected_objects = results[0].boxes.cls.tolist()
                     object_found = False
@@ -240,10 +242,10 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
                     text_x = annotated_frame.shape[1] - text_size[0] - 10
                     text_y = text_size[1] + 10
                     cv2.putText(annotated_frame, text, (text_x, text_y), font, 1, (255, 255, 255), 2, cv2.LINE_AA)
+                    annotated_frame = cv2.rotate(annotated_frame, cv2.ROTATE_90_COUNTERCLOCKWISE)
 
                     # Control the Pin based on detection
                     if object_found:
-                        print("Pin turned on!") #remove in final draft -testing purposes only
                         if StreamingHandler.flag>= 0:
                             StreamingHandler.flag+=1
                             filename = f"/home/ferry/SaRQ-4th-Year-Project-/Python/yolo/detect scripts/img/example{StreamingHandler.flag}.jpg"
@@ -251,8 +253,8 @@ class StreamingHandler(server.BaseHTTPRequestHandler):
 
                         #Logic to send email, will implement means to restart ability to email but this stops it for now
                         if StreamingHandler.flag == 10:
+                            StreamingHandler.flag = 0
                             send_email()
-                            StreamingHandler.flag = -1
 
                     # Encode frame back to JPEG for streaming
                     ret, jpeg = cv2.imencode('.jpg', annotated_frame)

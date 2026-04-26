@@ -24,4 +24,4 @@ def servo_calc(x_co_ord, y_co_ord, z_co_ord):
 
 
 #X, Y Z is passed or hip, horizontal and vertical
-servo_calc(0,89, -34) 
+servo_calc(0,100, -61) 

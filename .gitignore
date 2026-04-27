@@ -50,3 +50,7 @@ release
 *.su
 *.idb
 *.pdb
+
+
+#venv
+Python/yolo/venv/
